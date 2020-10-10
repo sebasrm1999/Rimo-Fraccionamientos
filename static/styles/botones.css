@@ -1,0 +1,28 @@
+#btn-login{
+    background-color: #adc867;
+    color: #ffffff;
+}
+#btn-login:hover{
+    background-color: #6f882f;
+    color: #ffffff;
+}
+#email{
+    color: #495057;
+}
+#password{
+    color: #495057;
+}
+#btn-cerrar{
+    background-color: #adc867;
+    color: #ffffff;
+    height: 100%;
+    width: 247px;
+    font-size: large;
+}
+#btn-cerrar:hover{
+    background-color: #6f882f;
+    color: #ffffff;
+    height: 100%;
+    width: 247px;
+    font-size: x-large;
+}
