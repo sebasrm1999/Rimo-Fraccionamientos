@@ -516,5 +516,16 @@ class BackEnd extends CI_Controller{
         echo json_encode( $obj );
     }
 
+    //LOGIN
+
+    public function login(){
+        $correo    = $this->input->post( "correo" );
+        $password    = $this->input->post( "contrasenia" ); 
+        $obj = $this->BackEnd_model->login_usuario($correo, $password);
+
+        $this->output->set_content_type( "application/json" );
+        echo json_encode( $obj );
+    }
+
 }
 ?>

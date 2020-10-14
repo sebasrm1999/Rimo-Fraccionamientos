@@ -292,5 +292,17 @@ class BackEnd_model extends CI_Model{
         return $obj;
     }
 
+    //LOGIN
+
+    public function login_usuario($correo, $password){
+        $this->db->where('correo', $correo);
+        $this->db->where('contrasenia', $password);
+        $rs = $this->db->get("usuario");
+        $obj['resultado'] = $rs->num_rows() > 0;
+        $obj['usuario'] = $obj['resultado'] ? $rs->result() : NULL; 
+
+		return $obj;
+    }
+
 }
 ?>
