@@ -1777,3 +1777,6 @@ section
 #preguntas{
 	margin-top: 80px;
 }
+#password-error{
+	color: #ff0000;
+}
