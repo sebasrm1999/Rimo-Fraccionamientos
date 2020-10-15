@@ -211,21 +211,32 @@ class BackEnd extends CI_Controller{
         if($tipo == 2){
             $idusu    = $this->input->post( "id_usuario" );
 
-            $data = array(
-            'id_aviso' => 0,
-            'tipo' => $tipo,
-            'id_usuario' => $idusu,
-            'status' => 0,
-            'asunto' => $asunto,
-            'descripcion' => $desc,
-            'fecha' => $fecha,
-            'hora' => $hora
-            ); 
+            $usuarioExiste = $this->BackEnd_model->get_usuario($idusu);
 
-            $obj = $this->BackEnd_model->inserta_aviso($data);
+            if($usuarioExiste != NULL){
+                $data = array(
+                    'id_aviso' => 0,
+                    'tipo' => $tipo,
+                    'id_usuario' => $idusu,
+                    'status' => 0,
+                    'asunto' => $asunto,
+                    'descripcion' => $desc,
+                    'fecha' => $fecha,
+                    'hora' => $hora
+                    ); 
+        
+                    $obj = $this->BackEnd_model->inserta_aviso($data);
+        
+                    $this->output->set_content_type( "application/json" );
+                    echo json_encode( $obj );
+            } else {
+                $obj['resultado'] = false;
+                $obj['mensaje'] = 'El usuario ingresado no existe.';
 
-            $this->output->set_content_type( "application/json" );
-            echo json_encode( $obj );
+                $this->output->set_content_type( "application/json" );
+                echo json_encode( $obj );
+            }
+
         } else if($tipo == 1){
 
             $data = array(
@@ -272,18 +283,57 @@ class BackEnd extends CI_Controller{
         $asunto      = $this->input->post( "asunto" );
         $desc    = $this->input->post( "descripcion" );
         $status    = $this->input->post( "status" );
+        $tipo    = $this->input->post( "tipo" );
+        
+        if($tipo == 2){
+            $idusu    = $this->input->post( "id_usuario" );
 
-        $data = array(
-            'id_aviso' => $id,
-            'status' => $status,
-            'asunto' => $asunto,
-            'descripcion' => $desc
-            ); 
+            $usuarioExiste = $this->BackEnd_model->get_usuario($idusu);
 
-        $obj = $this->BackEnd_model->update_aviso($data);
+            if($usuarioExiste != NULL){
+                $data = array(
+                    'id_aviso' => $id,
+                    'status' => $status,
+                    'asunto' => $asunto,
+                    'descripcion' => $desc,
+                    'tipo' => $tipo,
+                    'id_usuario' => $idusu
+                    ); 
+        
+                $obj = $this->BackEnd_model->update_aviso($data);
+        
+                $this->output->set_content_type( "application/json" );
+                echo json_encode( $obj );
+            } else {
+                $obj['resultado'] = false;
+                $obj['mensaje'] = 'El usuario ingresado no existe.';
 
-        $this->output->set_content_type( "application/json" );
-        echo json_encode( $obj );
+                $this->output->set_content_type( "application/json" );
+                echo json_encode( $obj );
+            }
+
+        } else if($tipo == 1){
+
+            $data = array(
+                'id_aviso' => $id,
+                'status' => $status,
+                'asunto' => $asunto,
+                'descripcion' => $desc,
+                'tipo' => $tipo
+                ); 
+    
+            $obj = $this->BackEnd_model->update_aviso($data);
+    
+            $this->output->set_content_type( "application/json" );
+            echo json_encode( $obj );
+        } else {
+            $obj['mensaje'] = 'Tipo inválido';
+
+            $this->output->set_content_type( "application/json" );
+            echo json_encode( $obj );
+        }
+
+        
     }
 
     public function borraaviso(){

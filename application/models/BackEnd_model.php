@@ -64,7 +64,7 @@ class BackEnd_model extends CI_Model{
     public function get_pregunta($id){
         $this->db->where('id_pregunta', $id);
         $rs = $this->db->get("pregunta");
-        $obj['pregunta'] = $rs->num_rows() == 0 ? NULL : $rs->result(); 
+        $obj = $rs->num_rows() == 0 ? NULL : $rs->result(); 
 
 		return $obj;
     }
@@ -107,7 +107,7 @@ class BackEnd_model extends CI_Model{
     public function get_usuario($id){
         $this->db->where('id_usuario', $id);
         $rs = $this->db->get("usuario");
-        $obj['usuario'] = $rs->num_rows() == 0 ? NULL : $rs->result(); 
+        $obj = $rs->num_rows() == 0 ? NULL : $rs->result(); 
 
 		return $obj;
     }
@@ -149,7 +149,7 @@ class BackEnd_model extends CI_Model{
     public function get_aviso($id){
         $this->db->where('id_aviso', $id);
         $rs = $this->db->get("aviso");
-        $obj['aviso'] = $rs->num_rows() == 0 ? NULL : $rs->result(); 
+        $obj = $rs->num_rows() == 0 ? NULL : $rs->result(); 
 
 		return $obj;
     }
@@ -191,7 +191,7 @@ class BackEnd_model extends CI_Model{
     public function get_pago($id){
         $this->db->where('id_pago', $id);
         $rs = $this->db->get("pago");
-        $obj['pago'] = $rs->num_rows() == 0 ? NULL : $rs->result(); 
+        $obj = $rs->num_rows() == 0 ? NULL : $rs->result(); 
 
 		return $obj;
     }
@@ -233,7 +233,7 @@ class BackEnd_model extends CI_Model{
     public function get_queja($id){
         $this->db->where('id_queja', $id);
         $rs = $this->db->get("queja");
-        $obj['queja'] = $rs->num_rows() == 0 ? NULL : $rs->result(); 
+        $obj = $rs->num_rows() == 0 ? NULL : $rs->result(); 
 
 		return $obj;
     }
@@ -275,7 +275,7 @@ class BackEnd_model extends CI_Model{
     public function get_comentario($id){
         $this->db->where('id_comentario', $id);
         $rs = $this->db->get("comentario");
-        $obj['comentario'] = $rs->num_rows() == 0 ? NULL : $rs->result(); 
+        $obj = $rs->num_rows() == 0 ? NULL : $rs->result(); 
 
 		return $obj;
     }

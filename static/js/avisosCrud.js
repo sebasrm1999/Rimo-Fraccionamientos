@@ -18,14 +18,36 @@ let base_url = 'http://localhost/myhome_ci/';
 
 $(document).ready(function()
 {
-	$('#dtBasicExample').DataTable({
-		"pagingType": "simple_numbers" // "simple" option for 'Previous' and 'Next' buttons only
-	  });
-	  $('.dataTables_length').addClass('bs-select');
 
-    "use strict";
+    var avisos = document.getElementById('avisos');
 
-    cargartabla();
+    avisos.innerHTML= '';
+    
+    $.ajax({
+        "url" : base_url + "BackEnd/avisos",
+        "type" : "get",
+        "dataType" : "json",
+        "success" : function(json){
+
+            json.avisos.forEach(doc => {
+                avisos.innerHTML += `<tr>
+				<td><button class="btn btn-outline-light text-dark" >${doc.asunto}</button></td>
+				<td>${doc.fecha}</td>
+                <td>${doc.hora}</td>
+                <td>
+                <button class="btn btn-outline-danger" onclick="borraraviso(${doc.id_aviso})" ><i class="fa fa-trash fa-3x"></i></button>
+                <button id="btn-actualizar-${doc.id_aviso}" class="btn btn-outline-warning" onclick="actualizarform(${doc.id_aviso})"><i class="fa fa-pencil fa-3x"></i></button>
+                </td>
+				</tr>`;
+            });
+
+            $('#dtBasicExample').DataTable({
+                "destroy": true,
+                "pagingType": "simple_numbers"
+              });
+            
+        }
+    });
 
 	/* 
 
@@ -116,7 +138,8 @@ $(document).ready(function()
 			$('#form-aviso').css('display', 'block');
 		} else {
 			$('#form-aviso').css('display', 'none');
-		}
+        }
+        $("#btn-confirmar").attr("onclick","agregaraviso()");
     });
     
     $('#tipo').on('change', function() {
@@ -126,9 +149,13 @@ $(document).ready(function()
             $('#id_usuario_div').css('display', 'none');
         }
       });
+
 });
 
 function cargartabla(){
+
+    $('#dtBasicExample').DataTable().clear().destroy();
+    
     var avisos = document.getElementById('avisos');
 
     avisos.innerHTML= '';
@@ -143,9 +170,18 @@ function cargartabla(){
                 avisos.innerHTML += `<tr>
 				<td><button class="btn btn-outline-light text-dark" >${doc.asunto}</button></td>
 				<td>${doc.fecha}</td>
-				<td>${doc.hora}</td>
+                <td>${doc.hora}</td>
+                <td>
+                <button class="btn btn-outline-danger" onclick="borraraviso(${doc.id_aviso})" ><i class="fa fa-trash fa-3x"></i></button>
+                <button id="btn-actualizar-${doc.id_aviso}" class="btn btn-outline-warning" onclick="actualizarform(${doc.id_aviso})"><i class="fa fa-pencil fa-3x"></i></button>
+                </td>
 				</tr>`;
             });
+
+            $('#dtBasicExample').DataTable({
+                "destroy": true,
+                "pagingType": "simple_numbers"
+              });
             
         }
     });
@@ -187,14 +223,92 @@ function agregaraviso(){
         });
     } else if(valor == 2){
         var idusu = document.getElementById('id_usuario').value;
+        if(!isNaN(idusu)){
+            $.ajax({
+                "url" : base_url + "BackEnd/nuevoaviso",
+                "type" : "post",
+                "data" : {
+                    "tipo" : valor,
+                    "asunto" : asunto,
+                    "descripcion" : descripcion,
+                    "id_usuario" : idusu
+                },
+                "dataType" : "json",
+                "success" : function(json){
+
+                    console.log(json);
+        
+                    if(json.resultado){
+        
+                        cargartabla();
+                        $('#form-aviso').css('display', 'none');
+                        
+                    } else {
+                        alert(json.mensaje);
+                    }
+                    
+                }
+            });
+        } else {
+            alert('El ID del usuario debe ser numérico');
+        }
+        
+    } 
+    
+}
+
+function actualizarform(id){
+    $.ajax({
+        "url" : base_url + "BackEnd/aviso",
+        "type" : "post",
+        "data" : {
+            "id" : id
+        },
+        "dataType" : "json",
+        "success" : function(json){
+
+            var visibilidad = $('#form-aviso').css('display');
+            if(visibilidad == 'none'){
+                $('#form-aviso').css('display', 'block');
+            } else {
+                $('#form-aviso').css('display', 'none');
+            }
+            $("#btn-confirmar").attr("onclick",`actualizaraviso(${id}, ${json[0].status})`);
+
+            console.log(json);
+
+            var tipo = document.getElementById('tipo');
+            tipo.value = json[0].tipo;
+            document.getElementById('asunto').value = json[0].asunto;
+            document.getElementById('aviso_cuerpo').value = json[0].descripcion;
+
+            if(json[0].tipo == 2){
+                $('#id_usuario_div').css('display', 'block');
+                document.getElementById('id_usuario').value = json[0].id_usuario;
+            } else {
+                $('#id_usuario_div').css('display', 'none');
+            }
+            
+        }
+    });
+    
+}
+
+function actualizaraviso(id, status){
+    var tipo = document.getElementById('tipo');
+    var valor = tipo.options[tipo.selectedIndex].value;
+    var asunto = document.getElementById('asunto').value;
+    var descripcion = document.getElementById('aviso_cuerpo').value;
+    if(valor == 1){
         $.ajax({
-            "url" : base_url + "BackEnd/nuevoaviso",
+            "url" : base_url + "BackEnd/actualizaaviso",
             "type" : "post",
             "data" : {
+                "id" : id,
+                "status" : status,
                 "tipo" : valor,
                 "asunto" : asunto,
-                "descripcion" : descripcion,
-                "id_usuario" : idusu
+                "descripcion" : descripcion
             },
             "dataType" : "json",
             "success" : function(json){
@@ -210,7 +324,62 @@ function agregaraviso(){
                 
             }
         });
+    } else if(valor == 2){
+        var idusu = document.getElementById('id_usuario').value;
+        if(!isNaN(idusu)){
+            $.ajax({
+                "url" : base_url + "BackEnd/actualizaaviso",
+                "type" : "post",
+                "data" : {
+                    "id" : id,
+                    "status" : status,
+                    "tipo" : valor,
+                    "asunto" : asunto,
+                    "descripcion" : descripcion,
+                    "id_usuario" : idusu
+                },
+                "dataType" : "json",
+                "success" : function(json){
+
+                    console.log(json);
+        
+                    if(json.resultado){
+        
+                        cargartabla();
+                        $('#form-aviso').css('display', 'none');
+                        
+                    } else {
+                        alert(json.mensaje);
+                    }
+                    
+                }
+            });
+        } else {
+            alert('El ID del usuario debe ser numérico');
+        }
+        
     } 
-    
+}
+
+function borraraviso(id){
+    $.ajax({
+        "url" : base_url + "BackEnd/borraaviso",
+        "type" : "post",
+        "data" : {
+            "id" : id
+        },
+        "dataType" : "json",
+        "success" : function(json){
+
+            if(json.resultado){
+
+                cargartabla();
+                
+            } else {
+                alert('Ha ocurrido un error');
+            }
+            
+        }
+    });
 }
 

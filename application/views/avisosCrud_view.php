@@ -72,48 +72,22 @@
 			<table id="dtBasicExample" class="table table-striped table-bordered table-responsive-md" cellspacing="0" width="100%">
 			<thead>
 				<tr>
-				<th class="th" style="width:60%;">Aviso
+				<th class="th" style="width:50%;">Aviso
 
 				</th>
-				<th class="th" style="width:20%;">Fecha
+				<th class="th" style="width:15%;">Fecha
 
 				</th>
-				<th class="th" style="width:20%;">Hora
+				<th class="th" style="width:15%;">Hora
+
+                </th>
+                <th class="th" style="width:20%;">
 
 				</th>
 				</tr>
 			</thead>
 			<tbody id="avisos">
-				<tr>
-				<td><button class="btn btn-outline-light text-dark" >Pago atrasado</button></td>
-				<td>2011/04/25</td>
-				<td>11:04</td>
-				</tr>
-				<tr>
-				<td><button class="btn btn-outline-light text-dark">Pago atrasado</button></td>
-				<td>2011/07/25</td>
-				<td>12:35</td>
-				</tr>
-				<tr>
-				<td><button class="btn btn-outline-light text-dark">Pago atrasado</button></td>
-				<td>2009/01/12</td>
-				<td>16:45</td>
-				</tr>
-				<tr>
-				<td><button class="btn btn-outline-light text-dark">Descuento en próxima mensualidad</button></td>
-				<td>2012/03/29</td>
-				<td>20:50</td>
-				</tr>
-				<tr>
-				<td><button class="btn btn-outline-light text-dark" data-toggle="modal" data-target="#avisoModal">Bienvenido</button></td>
-				<td>2008/11/28</td>
-				<td>14:32</td>
-				</tr>
-				<tr>
-				<td><button class="btn btn-outline-light text-dark">Descuento en próxima mensualidad</button></td>
-				<td>2012/12/02</td>
-				<td>17:13</td>
-				</tr>
+				
 			</tbody>
 			<tfoot>
 				<tr>
@@ -122,6 +96,8 @@
 				<th>Fecha
 				</th>
 				<th>Hora
+                </th>
+                <th>
 				</th>
 				</tr>
 			</tfoot>
@@ -163,7 +139,7 @@
             
             </div>
         </div>
-        <button type="button" class="subscribe btn btn-confirmar btn-block rounded-pill shadow-sm" onclick="agregaraviso()"> Confirmar  </button>
+        <button id="btn-confirmar" type="button" class="subscribe btn btn-confirmar btn-block rounded-pill shadow-sm" onclick="agregaraviso()"> Confirmar  </button>
         </form>
 
     </div>
