@@ -17,10 +17,19 @@ function login(){
         "success" : function(json){
 
             if(json.resultado){
-                sessionStorage.setItem("id", json.usuario[0].id_usuario);
-                sessionStorage.setItem("correo", email);
 
-                window.location.replace(`${base_url}index.php/inicio`);
+                if(json.usuario[0].tipo == 1){
+                    sessionStorage.setItem("id", json.usuario[0].id_usuario);
+                    sessionStorage.setItem("correo", email);
+
+                    window.location.replace(`${base_url}index.php/inicio`);
+                } else if(json.usuario[0].tipo == 2){
+                    sessionStorage.setItem("id", json.usuario[0].id_usuario);
+                    sessionStorage.setItem("correo", email);
+
+                    window.location.replace(`${base_url}index.php/avisoscrud`);
+                }
+                
             } else {
                 error.innerHTML = 'Correo o contraseña incorrectos';
             }
