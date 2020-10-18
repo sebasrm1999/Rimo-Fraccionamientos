@@ -352,17 +352,28 @@ class BackEnd extends CI_Controller{
         $mes      = $this->input->post( "mes" );
         $anio    = $this->input->post( "anio" );
 
-        $data = array(
-            'id_pago' => 0,
-            'id_usuario' => $id,
-            'mes' => $mes,
-            'anio' => $anio
-        );
+        $usuarioExiste = $this->BackEnd_model->get_usuario($id);
 
-        $obj = $this->BackEnd_model->inserta_pago($data);
+            if($usuarioExiste != NULL){
+                $data = array(
+                    'id_pago' => 0,
+                    'id_usuario' => $id,
+                    'mes' => $mes,
+                    'anio' => $anio
+                );
+        
+                $obj = $this->BackEnd_model->inserta_pago($data);
+        
+                $this->output->set_content_type( "application/json" );
+                echo json_encode( $obj );
+            } else {
+                $obj['resultado'] = false;
+                $obj['mensaje'] = 'El usuario ingresado no existe.';
 
-        $this->output->set_content_type( "application/json" );
-        echo json_encode( $obj );
+                $this->output->set_content_type( "application/json" );
+                echo json_encode( $obj );
+            }
+
     }
 
     public function actualizapago(){
@@ -370,28 +381,35 @@ class BackEnd extends CI_Controller{
         $idusu      = $this->input->post( "id_usuario" );
         $mes    = $this->input->post( "mes" );
         $anio    = $this->input->post( "anio" );
-        $fecha    = $this->input->post( "fecha" );
-        $hora    = $this->input->post( "hora" );
         $pronto    = $this->input->post( "pronto" );
         $status    = $this->input->post( "status" );
         $tipo    = $this->input->post( "tipo" );
 
-        $data = array(
-            'id_pago' => $id,
-            'fecha' => $fecha,
-            'hora' => $hora,
-            'id_usuario' => $idusu,
-            'mes' => $mes,
-            'anio' => $anio,
-            'pronto' => $pronto,
-            'status' => $status,
-            'tipo' => $tipo,
-            ); 
+        $usuarioExiste = $this->BackEnd_model->get_usuario($idusu);
 
-        $obj = $this->BackEnd_model->update_pago($data);
+            if($usuarioExiste != NULL){
+                $data = array(
+                    'id_pago' => $id,
+                    'id_usuario' => $idusu,
+                    'mes' => $mes,
+                    'anio' => $anio,
+                    'pronto' => $pronto,
+                    'status' => $status,
+                    'tipo' => $tipo,
+                    ); 
+        
+                $obj = $this->BackEnd_model->update_pago($data);
+        
+                $this->output->set_content_type( "application/json" );
+                echo json_encode( $obj );
+            } else {
+                $obj['resultado'] = false;
+                $obj['mensaje'] = 'El usuario ingresado no existe.';
 
-        $this->output->set_content_type( "application/json" );
-        echo json_encode( $obj );
+                $this->output->set_content_type( "application/json" );
+                echo json_encode( $obj );
+            }
+
     }
 
     public function pagos(){

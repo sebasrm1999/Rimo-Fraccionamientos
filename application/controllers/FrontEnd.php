@@ -44,5 +44,11 @@ class FrontEnd extends CI_Controller{
       $this->load->view('avisosCrud_view');
   
     }
+
+    public function pagoscrud(){
+		
+      $this->load->view('pagosCrud_view');
+  
+    }
 }
 ?>

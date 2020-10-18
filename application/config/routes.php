@@ -57,5 +57,6 @@ $route['quejas'] = 'frontEnd/quejas';
 $route['preguntas'] = 'frontEnd/preguntas';
 $route['registro'] = 'frontEnd/registro';
 $route['avisoscrud'] = 'frontEnd/avisoscrud';
+$route['pagoscrud'] = 'frontEnd/pagoscrud';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

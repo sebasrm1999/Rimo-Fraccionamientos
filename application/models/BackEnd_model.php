@@ -182,15 +182,16 @@ class BackEnd_model extends CI_Model{
     }
 
     public function get_pagos(){
-        $rs = $this->db->get("pago");
+        $query = "SELECT pago.*,usuario.nombre from pago, usuario WHERE pago.id_usuario=usuario.id_usuario";
+        $rs = $this->db->query($query);
         $obj['pagos'] = $rs->num_rows() == 0 ? NULL : $rs->result(); 
 
 		return $obj;
     }
 
     public function get_pago($id){
-        $this->db->where('id_pago', $id);
-        $rs = $this->db->get("pago");
+        $query = "SELECT pago.*, usuario.nombre from pago, usuario WHERE pago.id_usuario=usuario.id_usuario AND id_pago=".$id."";
+        $rs = $this->db->query($query);
         $obj = $rs->num_rows() == 0 ? NULL : $rs->result(); 
 
 		return $obj;
