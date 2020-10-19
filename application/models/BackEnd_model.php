@@ -225,16 +225,25 @@ class BackEnd_model extends CI_Model{
     }
 
     public function get_quejas(){
-        $rs = $this->db->get("queja");
+        $query = "SELECT queja.*,usuario.nombre from queja, usuario WHERE queja.id_usuario=usuario.id_usuario";
+        $rs = $this->db->query($query);
         $obj['quejas'] = $rs->num_rows() == 0 ? NULL : $rs->result(); 
 
 		return $obj;
     }
 
     public function get_queja($id){
-        $this->db->where('id_queja', $id);
-        $rs = $this->db->get("queja");
+        $query = "SELECT queja.*, usuario.nombre from queja, usuario WHERE queja.id_usuario=usuario.id_usuario AND id_queja=".$id."";
+        $rs = $this->db->query($query);
         $obj = $rs->num_rows() == 0 ? NULL : $rs->result(); 
+
+		return $obj;
+    }
+
+    public function get_quejacomentarios($id){
+        $query = "SELECT comentario.*, usuario.nombre from comentario, usuario WHERE comentario.id_usuario=usuario.id_usuario and id_queja=".$id."";
+        $rs = $this->db->query($query);
+        $obj['comentarios'] = $rs->num_rows() == 0 ? NULL : $rs->result(); 
 
 		return $obj;
     }

@@ -31,8 +31,8 @@
 			<nav class="main_nav">
 				<ul class="d-flex flex-row align-items-start justify-content-start">
 					<li><a href="<?= base_url() ?>index.php/avisoscrud">Avisos</a></li>
-					<li class="active"><a href="#">Pagos</a></li>
-					<li><a href="<?= base_url() ?>index.php/quejascrud">Quejas</a></li>
+					<li><a href="<?= base_url() ?>index.php/pagoscrud">Pagos</a></li>
+					<li class="active"><a href="#">Quejas</a></li>
 					<li><a href="<?= base_url() ?>index.php/preguntas">Preguntas frecuentes</a></li>
 				</ul>
 			</nav>
@@ -50,8 +50,8 @@
 			<nav class="menu_nav">
 				<ul>
 					<li><a href="<?= base_url() ?>index.php/avisoscrud">Avisos</a></li>
-					<li><a href="#">Pagos</a></li>
-					<li><a href="<?= base_url() ?>index.php/quejascrud">Quejas</a></li>
+					<li><a href="<?= base_url() ?>index.php/pagoscrud">Pagos</a></li>
+					<li><a href="#">Quejas</a></li>
 					<li><a href="<?= base_url() ?>index.php/preguntas">Preguntas Frecuentes</a></li>
 				</ul>
 			</nav>
@@ -65,22 +65,19 @@
 			<div class="row">
 				<div class="col">
 					<div class="section_title_container text-center">
-						<div class="section_title"><h1>Pagos</h1></div>
+						<div class="section_title"><h1>Quejas</h1></div>
 					</div>
 				</div>
 			</div>
 			<table id="dtBasicExample" class="table table-striped table-bordered table-responsive-md" cellspacing="0" width="100%">
 			<thead>
 				<tr>
-				<th class="th" style="width:20%;">Mes
+				<th class="th" style="width:30%;">Asunto
 
                 </th>
                 <th class="th" style="width:30%;">Usuario
 
                 </th>
-                <th class="th" style="width:10%;">Pagado
-
-				</th>
 				<th class="th" style="width:10%;">Fecha
 
 				</th>
@@ -92,17 +89,15 @@
 				</th>
 				</tr>
 			</thead>
-			<tbody id="pagos">
+			<tbody id="quejas">
 				
 			</tbody>
 			<tfoot>
 				<tr>
-				<th>Mes
+				<th>Asunto
                 </th>
                 <th>Usuario
                 </th>
-                <th>Pagado
-				</th>
 				<th>Fecha
 				</th>
 				<th>Hora
@@ -114,82 +109,42 @@
 			</table>
 		</div>
 
-        <div class="my-3 d-flex justify-content-center">
-    <button id="btn-nuevo-pago" class="btn p-2 px-4 text-white btn-quejas">
-    <div class="row">
-        <i class="fa fa-plus fa-3x mr-2"></i><h3 class="text-white mt-2">Nuevo pago</h3>
-    </div>    
-    </button>
-    </div>
-
-    <div id="form-pago" action="#" class="mx-5 my-5" style="display: none;">
-
-        <div id="alerta-tarjeta"></div>
-        <form role="form">
-        <div id="id_usuario_div" class="form-group">
-            <label for="id_usuario">ID de usuario</label>
-            <input id="id_usuario" type="text" name="id_usuario" class="form-control" required>
-        </div>
-        <div class="form-group">
-            <label for="mes">Mes</label>
-            <input id="mes" type="text" name="mes" required class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="anio">Anio</label>
-            <input id="anio" type="text" maxlength="4" name="anio" required class="form-control">
-        </div>
-        <div id="act-form" style="display: none;">
-            <div class="form-group">
-                <label for="status">Pagado</label>
-                <select class="form-control" id="status">
-                    <option value="0">NO</option>
-                    <option value="1">SI</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="pronto">Pronto Pago</label>
-                <select class="form-control" id="pronto">
-                    <option value="null">-</option>
-                    <option value="0">No</option>
-                    <option value="1">Si</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="tipo">Forma de pago</label>
-                <select class="form-control" id="tipo">
-                    <option value="null">-</option>
-                    <option value="1">Tarjeta de crédito/débito</option>
-                    <option value="2">Paypal</option>
-                    <option value="3">Oxxo</option>
-                </select>
-            </div>
-        </div>
-        
-        <button id="btn-confirmar" type="button" class="subscribe btn btn-confirmar btn-block rounded-pill shadow-sm" onclick="agregaraviso()"> Confirmar  </button>
-        </form>
-
-    </div>
-
 	</div>
 
 	<!-- Modal -->
-	<div id="avisoModal" class="modal fade" role="dialog">
+	<div id="quejaModal" class="modal fade" role="dialog">
 	<div class="modal-dialog modal-lg">
 
 		<!-- Modal content-->
 		<div class="modal-content">
 		<div class="modal-header">
-		<h4 class="modal-title text-white">Bienvenida</h4>
+		<h4 id="asunto" class="modal-title text-white">Demora en Jardinería</h4>
 			<button type="button" class="close" data-dismiss="modal">&times;</button>
 			
 		</div>
 		<div class="modal-body">
-			<p>Bienvenido a myHome. Disfrute de su vivienda, le agradecemos enormemente su preferencia.</p>
-		</div>
+			<h5><strong id="user-queja">Sebas Ramos</strong></h5>
+			<div class="m-3">
+                <p id="descripcion" class="queja-desc shadow">El jardinero me había dicho que el viernes pasado (11 de septiembre) podaría mi jardín frontal, sin embargo hasta la fecha aún no se reporta.</p>
+                <div class="row float-right mr-3">
+                    <h6 id="fecha" class="mx-1" style="color:gray;">fecha</h6>
+                    <h6 id="hora" class="mx-1" style="color:gray;">hora</h6>
+                </div>
+            </div>
+            <h5 style="color: gray;">Comentarios: </h5>
+			<div id="comentarios" class="container comentarios ml-5 my-3">
+
+			</div>
+			<div class="ml-5 mt-5">
+                <textarea placeholder="Escriba un comentario..." class="form-control" name="new-comentario" id="new-comentario" rows="3"></textarea>
+                <button id="btn-confirmar" type="button" class="subscribe btn btn-confirmar btn-block rounded-pill shadow-sm mt-2 mr-5"> Enviar  </button>
+			</div>
+			
 		<div class="modal-footer">
 			<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
 		</div>
 		</div>
+	</div>
 
 	</div>
 	</div>
@@ -247,8 +202,8 @@
 							<div class="footer_title">Enlaces</div>
 							<ul>
 								<li><a href="<?= base_url() ?>index.php/avisoscrud">Avisos</a></li>
-								<li><a href="#">Pagos</a></li>
-								<li><a href="<?= base_url() ?>index.php/quejascrud">Quejas</a></li>
+								<li><a href="<?= base_url() ?>index.php/pagoscrud">Pagos</a></li>
+								<li><a href="#">Quejas</a></li>
 								<li><a href="<?= base_url() ?>index.php/preguntas">Preguntas Frecuentes</a></li>
 							</ul>
 						</div>
@@ -275,6 +230,6 @@
 <script src="<?= base_url() ?>static/plugins/progressbar/progressbar.min.js"></script>
 <script src="<?= base_url() ?>static/plugins/parallax-js-master/parallax.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCIwF204lFZg1y4kPSIhKaHEXMLYxxuMhA"></script>
-<script src="<?= base_url() ?>static/js/pagosCrud.js"></script>
+<script src="<?= base_url() ?>static/js/quejasCrud.js"></script>
 </body>
 </html>

@@ -513,6 +513,16 @@ class BackEnd extends CI_Controller{
         echo json_encode( $obj );
     }
 
+    public function comentariosxqueja(){
+        $id    = $this->input->post( "id" ); 
+        $obj['queja'] = $this->BackEnd_model->get_queja($id);
+
+        $obj += $this->BackEnd_model->get_quejacomentarios($id);
+
+        $this->output->set_content_type( "application/json" );
+        echo json_encode( $obj );
+    }
+
     //COMENTARIOS
 
     public function nuevocomentario(){

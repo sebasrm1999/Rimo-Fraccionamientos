@@ -32,7 +32,7 @@
 				<ul class="d-flex flex-row align-items-start justify-content-start">
 					<li class="active"><a href="#">Avisos</a></li>
 					<li><a href="<?= base_url() ?>index.php/pagoscrud">Pagos</a></li>
-					<li><a href="<?= base_url() ?>index.php/quejas">Quejas</a></li>
+					<li><a href="<?= base_url() ?>index.php/quejascrud">Quejas</a></li>
 					<li><a href="<?= base_url() ?>index.php/preguntas">Preguntas frecuentes</a></li>
 				</ul>
 			</nav>
@@ -51,7 +51,7 @@
 				<ul>
 					<li><a href="#">Avisos</a></li>
 					<li><a href="<?= base_url() ?>index.php/pagoscrud">Pagos</a></li>
-					<li><a href="<?= base_url() ?>index.php/quejas">Quejas</a></li>
+					<li><a href="<?= base_url() ?>index.php/quejascrud">Quejas</a></li>
 					<li><a href="<?= base_url() ?>index.php/preguntas">Preguntas Frecuentes</a></li>
 				</ul>
 			</nav>
@@ -222,7 +222,7 @@
 							<ul>
 								<li><a href="#">Avisos</a></li>
 								<li><a href="<?= base_url() ?>index.php/pagoscrud">Pagos</a></li>
-								<li><a href="<?= base_url() ?>index.php/quejas">Quejas</a></li>
+								<li><a href="<?= base_url() ?>index.php/quejascrud">Quejas</a></li>
 								<li><a href="<?= base_url() ?>index.php/preguntas">Preguntas Frecuentes</a></li>
 							</ul>
 						</div>
