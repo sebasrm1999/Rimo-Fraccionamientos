@@ -33,7 +33,8 @@
 					<li><a href="<?= base_url() ?>index.php/avisoscrud">Avisos</a></li>
 					<li><a href="<?= base_url() ?>index.php/pagoscrud">Pagos</a></li>
 					<li class="active"><a href="#">Quejas</a></li>
-					<li><a href="<?= base_url() ?>index.php/preguntas">Preguntas frecuentes</a></li>
+					<li><a href="<?= base_url() ?>index.php/preguntascrud">Preguntas frecuentes</a></li>
+					<li><a href="<?= base_url() ?>index.php/areascrud">Áreas</a></li>
 				</ul>
 			</nav>
 			<button id="btn-cerrar" onclick="cerrar()" class="ml-auto btn rounded-0">Cerrar Sesión</button>
@@ -52,7 +53,8 @@
 					<li><a href="<?= base_url() ?>index.php/avisoscrud">Avisos</a></li>
 					<li><a href="<?= base_url() ?>index.php/pagoscrud">Pagos</a></li>
 					<li><a href="#">Quejas</a></li>
-					<li><a href="<?= base_url() ?>index.php/preguntas">Preguntas Frecuentes</a></li>
+					<li><a href="<?= base_url() ?>index.php/preguntascrud">Preguntas Frecuentes</a></li>
+					<li><a href="<?= base_url() ?>index.php/areascrud">Áreas</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -204,7 +206,8 @@
 								<li><a href="<?= base_url() ?>index.php/avisoscrud">Avisos</a></li>
 								<li><a href="<?= base_url() ?>index.php/pagoscrud">Pagos</a></li>
 								<li><a href="#">Quejas</a></li>
-								<li><a href="<?= base_url() ?>index.php/preguntas">Preguntas Frecuentes</a></li>
+								<li><a href="<?= base_url() ?>index.php/preguntascrud">Preguntas Frecuentes</a></li>
+								<li><a href="<?= base_url() ?>index.php/areascrud">Áreas</a></li>
 							</ul>
 						</div>
 					</div>

@@ -30,10 +30,10 @@
 			<div class="logo"><a href="#">my<span>home</span></a></div>
 			<nav class="main_nav">
 				<ul class="d-flex flex-row align-items-start justify-content-start">
-					<li class="active"><a href="#">Avisos</a></li>
+					<li><a href="<?= base_url() ?>index.php/avisoscrud">Avisos</a></li>
 					<li><a href="<?= base_url() ?>index.php/pagoscrud">Pagos</a></li>
 					<li><a href="<?= base_url() ?>index.php/quejascrud">Quejas</a></li>
-					<li><a href="<?= base_url() ?>index.php/preguntascrud">Preguntas frecuentes</a></li>
+					<li class="active"><a href="#">Preguntas frecuentes</a></li>
 					<li><a href="<?= base_url() ?>index.php/areascrud">Áreas</a></li>
 				</ul>
 			</nav>
@@ -50,10 +50,10 @@
 		<div class="menu_log_reg">
 			<nav class="menu_nav">
 				<ul>
-					<li><a href="#">Avisos</a></li>
+					<li><a href="<?= base_url() ?>index.php/avisoscrud">Avisos</a></li>
 					<li><a href="<?= base_url() ?>index.php/pagoscrud">Pagos</a></li>
 					<li><a href="<?= base_url() ?>index.php/quejascrud">Quejas</a></li>
-					<li><a href="<?= base_url() ?>index.php/preguntascrud">Preguntas Frecuentes</a></li>
+					<li><a href="#">Preguntas Frecuentes</a></li>
 					<li><a href="<?= base_url() ?>index.php/areascrud">Áreas</a></li>
 				</ul>
 			</nav>
@@ -67,38 +67,28 @@
 			<div class="row">
 				<div class="col">
 					<div class="section_title_container text-center">
-						<div class="section_title"><h1>Avisos</h1></div>
+						<div class="section_title"><h1>Preguntas frecuentes</h1></div>
 					</div>
 				</div>
 			</div>
 			<table id="dtBasicExample" class="table table-striped table-bordered table-responsive-md" cellspacing="0" width="100%">
 			<thead>
 				<tr>
-				<th class="th" style="width:50%;">Aviso
+				<th class="th" style="width:80%;">Asunto
 
 				</th>
-				<th class="th" style="width:15%;">Fecha
-
-				</th>
-				<th class="th" style="width:15%;">Hora
-
-                </th>
                 <th class="th" style="width:20%;">
 
 				</th>
 				</tr>
 			</thead>
-			<tbody id="avisos">
+			<tbody id="preguntas">
 				
 			</tbody>
 			<tfoot>
 				<tr>
-				<th>Aviso
+				<th>Asunto
 				</th>
-				<th>Fecha
-				</th>
-				<th>Hora
-                </th>
                 <th>
 				</th>
 				</tr>
@@ -107,37 +97,25 @@
 		</div>
 
         <div class="my-3 d-flex justify-content-center">
-    <button id="btn-nuevo-aviso" class="btn p-2 px-4 text-white btn-quejas">
+    <button id="btn-nueva-pregunta" class="btn p-2 px-4 text-white btn-quejas">
     <div class="row">
-        <i class="fa fa-plus fa-3x mr-2"></i><h3 class="text-white mt-2">Nuevo aviso</h3>
+        <i class="fa fa-plus fa-3x mr-2"></i><h3 class="text-white mt-2">Nueva pregunta</h3>
     </div>    
     </button>
     </div>
 
-    <div id="form-aviso" action="#" class="mx-5 my-5" style="display: none;">
+    <div id="form-pregunta" action="#" class="mx-5 my-5" style="display: none;">
 
         <div id="alerta-tarjeta"></div>
         <form role="form">
-        
-		<div class="form-group">
-            <label for="tipo">Tipo de aviso</label>
-            <select class="form-control" id="tipo">
-				<option value="1">General</option>
-				<option value="2">Personal</option>
-			</select>
-        </div>
-        <div id="id_usuario_div" class="form-group" style="display: none;">
-            <label for="id_usuario">ID de usuario</label>
-            <input id="id_usuario" type="text" name="id_usuario" class="form-control">
-        </div>
         <div class="form-group">
             <label for="asunto">Asunto</label>
-            <input id="asunto" type="text" placeholder="Asunto del aviso" name="asunto" required class="form-control">
+            <input id="asunto" type="text" placeholder="Asunto de la pregunta" name="asunto" required class="form-control">
         </div>
         <div class="form-group">
-            <label for="aviso_cuerpo">Descripción de su aviso</label>
+            <label for="pregunta_cuerpo">Respuesta a la pregunta</label>
             <div class="input-group">
-            <textarea class="form-control" name="aviso_cuerpo" id="aviso_cuerpo" rows="10"></textarea>
+            <textarea class="form-control" name="pregunta_cuerpo" id="pregunta_cuerpo" rows="10"></textarea>
             
             </div>
         </div>
@@ -222,10 +200,10 @@
 						<div class="footer_links usefull_links">
 							<div class="footer_title">Enlaces</div>
 							<ul>
-								<li><a href="#">Avisos</a></li>
+								<li><a href="<?= base_url() ?>index.php/avisoscrud">Avisos</a></li>
 								<li><a href="<?= base_url() ?>index.php/pagoscrud">Pagos</a></li>
 								<li><a href="<?= base_url() ?>index.php/quejascrud">Quejas</a></li>
-								<li><a href="<?= base_url() ?>index.php/preguntascrud">Preguntas Frecuentes</a></li>
+								<li><a href="#">Preguntas Frecuentes</a></li>
 								<li><a href="<?= base_url() ?>index.php/areascrud">Áreas</a></li>
 							</ul>
 						</div>
@@ -252,6 +230,6 @@
 <script src="<?= base_url() ?>static/plugins/progressbar/progressbar.min.js"></script>
 <script src="<?= base_url() ?>static/plugins/parallax-js-master/parallax.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCIwF204lFZg1y4kPSIhKaHEXMLYxxuMhA"></script>
-<script src="<?= base_url() ?>static/js/avisosCrud.js"></script>
+<script src="<?= base_url() ?>static/js/preguntasCrud.js"></script>
 </body>
 </html>
