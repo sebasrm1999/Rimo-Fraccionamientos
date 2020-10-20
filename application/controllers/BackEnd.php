@@ -29,7 +29,15 @@ class BackEnd extends CI_Controller{
     }
 
     public function areas(){
-        $obj = $this->BackEnd_model->get_area();
+        $obj = $this->BackEnd_model->get_areas();
+
+        $this->output->set_content_type( "application/json" );
+        echo json_encode( $obj );
+    }
+
+    public function area(){
+        $id    = $this->input->post( "id" ); 
+        $obj = $this->BackEnd_model->get_area($id);
 
         $this->output->set_content_type( "application/json" );
         echo json_encode( $obj );

@@ -114,15 +114,12 @@
         <div id="alerta-tarjeta"></div>
         <form role="form">
         <div class="form-group">
-            <label for="asunto">Asunto</label>
-            <input id="asunto" type="text" placeholder="Asunto de la pregunta" name="asunto" required class="form-control">
+            <label for="nombre">Nombre</label>
+            <input id="nombre" type="text" placeholder="Nombre del área" name="nombre" required class="form-control">
         </div>
         <div class="form-group">
-            <label for="pregunta_cuerpo">Respuesta a la pregunta</label>
-            <div class="input-group">
-            <textarea class="form-control" name="pregunta_cuerpo" id="pregunta_cuerpo" rows="10"></textarea>
-            
-            </div>
+            <label for="encargado">Encargado</label>
+            <input id="encargado" type="text" placeholder="Encargado del área" name="encargado" required class="form-control">
         </div>
         <button id="btn-confirmar" type="button" class="subscribe btn btn-confirmar btn-block rounded-pill shadow-sm" onclick="agregaraviso()"> Confirmar  </button>
         </form>

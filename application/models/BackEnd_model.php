@@ -20,9 +20,17 @@ class BackEnd_model extends CI_Model{
         return $obj;
     }
 
-    public function get_area(){
+    public function get_areas(){
         $rs = $this->db->get("area");
         $obj['areas'] = $rs->num_rows() == 0 ? NULL : $rs->result(); 
+
+		return $obj;
+    }
+
+    public function get_area($id){
+        $this->db->where('id_area', $id);
+        $rs = $this->db->get("area");
+        $obj = $rs->num_rows() == 0 ? NULL : $rs->result(); 
 
 		return $obj;
     }

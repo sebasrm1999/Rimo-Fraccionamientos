@@ -131,14 +131,14 @@ $(document).ready(function()
 		}
     }
 
-    $('#btn-nueva-pregunta').click(function(){
-		var visibilidad = $('#form-pregunta').css('display');
+    $('#btn-nuevo-area').click(function(){
+		var visibilidad = $('#form-area').css('display');
 		if(visibilidad == 'none'){
-			$('#form-pregunta').css('display', 'block');
+			$('#form-area').css('display', 'block');
 		} else {
-			$('#form-pregunta').css('display', 'none');
+			$('#form-area').css('display', 'none');
         }
-        $("#btn-confirmar").attr("onclick","agregarpregunta()");
+        $("#btn-confirmar").attr("onclick","agregararea()");
     });
 
 });
@@ -183,15 +183,15 @@ function cerrar(){
     window.location.replace(`${base_url}index.php`);
 }
 
-function agregarpregunta(){
-    var asunto = document.getElementById('asunto').value;
-    var descripcion = document.getElementById('pregunta_cuerpo').value;
+function agregararea(){
+    var nombre = document.getElementById('nombre').value;
+    var encargado = document.getElementById('encargado').value;
     $.ajax({
-        "url" : base_url + "BackEnd/nuevapregunta",
+        "url" : base_url + "BackEnd/nuevaarea",
         "type" : "post",
         "data" : {
-            "asunto" : asunto,
-            "descripcion" : descripcion
+            "nombre" : nombre,
+            "encargado" : encargado
         },
         "dataType" : "json",
         "success" : function(json){
@@ -199,7 +199,7 @@ function agregarpregunta(){
             if(json.resultado){
 
                 cargartabla();
-                $('#form-pregunta').css('display', 'none');
+                $('#form-area').css('display', 'none');
                 
             } else {
                 alert('Error inesperado');
@@ -212,7 +212,7 @@ function agregarpregunta(){
 
 function actualizarform(id){
     $.ajax({
-        "url" : base_url + "BackEnd/pregunta",
+        "url" : base_url + "BackEnd/area",
         "type" : "post",
         "data" : {
             "id" : id
@@ -220,32 +220,32 @@ function actualizarform(id){
         "dataType" : "json",
         "success" : function(json){
 
-            var visibilidad = $('#form-pregunta').css('display');
+            var visibilidad = $('#form-area').css('display');
             if(visibilidad == 'none'){
-                $('#form-pregunta').css('display', 'block');
+                $('#form-area').css('display', 'block');
             } else {
-                $('#form-pregunta').css('display', 'none');
+                $('#form-area').css('display', 'none');
             }
-            $("#btn-confirmar").attr("onclick",`actualizarpregunta(${id})`);
+            $("#btn-confirmar").attr("onclick",`actualizararea(${id})`);
 
-            document.getElementById('asunto').value = json[0].asunto;
-            document.getElementById('pregunta_cuerpo').value = json[0].descripcion;
+            document.getElementById('nombre').value = json[0].nombre;
+            document.getElementById('encargado').value = json[0].encargado;
             
         }
     });
     
 }
 
-function actualizarpregunta(id){
-    var asunto = document.getElementById('asunto').value;
-    var descripcion = document.getElementById('pregunta_cuerpo').value;
+function actualizararea(id){
+    var nombre = document.getElementById('nombre').value;
+    var encargado = document.getElementById('encargado').value;
     $.ajax({
-        "url" : base_url + "BackEnd/actualizapregunta",
+        "url" : base_url + "BackEnd/actualizaarea",
         "type" : "post",
         "data" : {
             "id" : id,
-            "asunto" : asunto,
-            "descripcion" : descripcion
+            "nombre" : nombre,
+            "encargado" : encargado
         },
         "dataType" : "json",
         "success" : function(json){
@@ -253,7 +253,7 @@ function actualizarpregunta(id){
             if(json.resultado){
 
                 cargartabla();
-                $('#form-pregunta').css('display', 'none');
+                $('#form-area').css('display', 'none');
                 
             } else {
                 alert('Error inesperado');
@@ -263,9 +263,9 @@ function actualizarpregunta(id){
     });
 }
 
-function borrarpregunta(id){
+function borrararea(id){
     $.ajax({
-        "url" : base_url + "BackEnd/borrapregunta",
+        "url" : base_url + "BackEnd/borraarea",
         "type" : "post",
         "data" : {
             "id" : id
