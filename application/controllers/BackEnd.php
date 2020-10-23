@@ -181,21 +181,39 @@ class BackEnd extends CI_Controller{
         $direccion      = $this->input->post( "direccion" );
         $verificado      = $this->input->post( "verificado" );
 
-        $data = array(
-            'id_usuario' => $id,
-            'nombre' => $nombre,
-            'duenio' => $duenio,
-            'correo' => $correo,
-            'contrasenia' => $contrasenia,
-            'telefono' => $telefono,
-            'direccion' => $direccion,
-            'verificado' => $verificado,
-        );
-
-        $obj = $this->BackEnd_model->update_usuario($data);
-
-        $this->output->set_content_type( "application/json" );
-        echo json_encode( $obj );
+        if($contrasenia != null){
+            $data = array(
+                'id_usuario' => $id,
+                'nombre' => $nombre,
+                'duenio' => $duenio,
+                'correo' => $correo,
+                'contrasenia' => $contrasenia,
+                'telefono' => $telefono,
+                'direccion' => $direccion,
+                'verificado' => $verificado,
+            );
+    
+            $obj = $this->BackEnd_model->update_usuario($data);
+    
+            $this->output->set_content_type( "application/json" );
+            echo json_encode( $obj );
+        } else {
+            $data = array(
+                'id_usuario' => $id,
+                'nombre' => $nombre,
+                'duenio' => $duenio,
+                'correo' => $correo,
+                'telefono' => $telefono,
+                'direccion' => $direccion,
+                'verificado' => $verificado,
+            );
+    
+            $obj = $this->BackEnd_model->update_usuario($data);
+    
+            $this->output->set_content_type( "application/json" );
+            echo json_encode( $obj );
+        }
+       
     }
 
     public function borrausuario(){

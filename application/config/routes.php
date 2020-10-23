@@ -61,5 +61,6 @@ $route['pagoscrud'] = 'frontEnd/pagoscrud';
 $route['quejascrud'] = 'frontEnd/quejascrud';
 $route['preguntascrud'] = 'frontEnd/preguntascrud';
 $route['areascrud'] = 'frontEnd/areascrud';
+$route['usuarioscrud'] = 'frontEnd/usuarioscrud';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

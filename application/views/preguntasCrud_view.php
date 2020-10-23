@@ -35,6 +35,7 @@
 					<li><a href="<?= base_url() ?>index.php/quejascrud">Quejas</a></li>
 					<li class="active"><a href="#">Preguntas frecuentes</a></li>
 					<li><a href="<?= base_url() ?>index.php/areascrud">Áreas</a></li>
+					<li><a href="<?= base_url() ?>index.php/usuarioscrud">Usuarios</a></li>
 				</ul>
 			</nav>
 			<button id="btn-cerrar" onclick="cerrar()" class="ml-auto btn rounded-0">Cerrar Sesión</button>
@@ -55,6 +56,7 @@
 					<li><a href="<?= base_url() ?>index.php/quejascrud">Quejas</a></li>
 					<li><a href="#">Preguntas Frecuentes</a></li>
 					<li><a href="<?= base_url() ?>index.php/areascrud">Áreas</a></li>
+					<li><a href="<?= base_url() ?>index.php/usuarioscrud">Usuarios</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -205,6 +207,7 @@
 								<li><a href="<?= base_url() ?>index.php/quejascrud">Quejas</a></li>
 								<li><a href="#">Preguntas Frecuentes</a></li>
 								<li><a href="<?= base_url() ?>index.php/areascrud">Áreas</a></li>
+								<li><a href="<?= base_url() ?>index.php/usuarioscrud">Usuarios</a></li>
 							</ul>
 						</div>
 					</div>

@@ -31,11 +31,11 @@
 			<nav class="main_nav">
 				<ul class="d-flex flex-row align-items-start justify-content-start">
 					<li><a href="<?= base_url() ?>index.php/avisoscrud">Avisos</a></li>
-					<li class="active"><a href="#">Pagos</a></li>
+					<li><a href="<?= base_url() ?>index.php/pagoscrud">Pagos</a></li>
 					<li><a href="<?= base_url() ?>index.php/quejascrud">Quejas</a></li>
 					<li><a href="<?= base_url() ?>index.php/preguntascrud">Preguntas frecuentes</a></li>
 					<li><a href="<?= base_url() ?>index.php/areascrud">Áreas</a></li>
-					<li><a href="<?= base_url() ?>index.php/usuarioscrud">Usuarios</a></li>
+					<li class="active"><a href="#">Usuarios</a></li>
 				</ul>
 			</nav>
 			<button id="btn-cerrar" onclick="cerrar()" class="ml-auto btn rounded-0">Cerrar Sesión</button>
@@ -52,11 +52,11 @@
 			<nav class="menu_nav">
 				<ul>
 					<li><a href="<?= base_url() ?>index.php/avisoscrud">Avisos</a></li>
-					<li><a href="#">Pagos</a></li>
+					<li><a href="<?= base_url() ?>index.php/pagoscrud">Pagos</a></li>
 					<li><a href="<?= base_url() ?>index.php/quejascrud">Quejas</a></li>
 					<li><a href="<?= base_url() ?>index.php/preguntascrud">Preguntas Frecuentes</a></li>
 					<li><a href="<?= base_url() ?>index.php/areascrud">Áreas</a></li>
-					<li><a href="<?= base_url() ?>index.php/usuarioscrud">Usuarios</a></li>
+					<li><a href="#">Usuarios</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -69,48 +69,43 @@
 			<div class="row">
 				<div class="col">
 					<div class="section_title_container text-center">
-						<div class="section_title"><h1>Pagos</h1></div>
+						<div class="section_title"><h1>Usuarios</h1></div>
 					</div>
 				</div>
 			</div>
 			<table id="dtBasicExample" class="table table-striped table-bordered table-responsive-md" cellspacing="0" width="100%">
 			<thead>
 				<tr>
-				<th class="th" style="width:20%;">Mes
-
-                </th>
-                <th class="th" style="width:30%;">Usuario
-
-                </th>
-                <th class="th" style="width:10%;">Pagado
+				<th class="th" style="width:30%;">Nombre
 
 				</th>
-				<th class="th" style="width:10%;">Fecha
+                <th class="th" style="width:20%;">Correo
 
 				</th>
-				<th class="th" style="width:10%;">Hora
+                <th class="th" style="width:20%;">Fecha registro
 
-                </th>
+				</th>
+                <th class="th" style="width:10%;">Verificado
+
+				</th>
                 <th class="th" style="width:20%;">
 
 				</th>
 				</tr>
 			</thead>
-			<tbody id="pagos">
+			<tbody id="usuarios">
 				
 			</tbody>
 			<tfoot>
 				<tr>
-				<th>Mes
-                </th>
-                <th>Usuario
-                </th>
-                <th>Pagado
+				<th>Nombre
 				</th>
-				<th>Fecha
+                <th>Correo
 				</th>
-				<th>Hora
-                </th>
+                <th>Fecha registro
+				</th>
+                <th>Verificado
+				</th>
                 <th>
 				</th>
 				</tr>
@@ -118,57 +113,48 @@
 			</table>
 		</div>
 
-        <div class="my-3 d-flex justify-content-center">
-    <button id="btn-nuevo-pago" class="btn p-2 px-4 text-white btn-quejas">
-    <div class="row">
-        <i class="fa fa-plus fa-3x mr-2"></i><h3 class="text-white mt-2">Nuevo pago</h3>
-    </div>    
-    </button>
-    </div>
-
-    <div id="form-pago" action="#" class="mx-5 my-5" style="display: none;">
+        <div id="form-usuario" action="#" class="mx-5 my-5" style="display: none;">
 
         <div id="alerta-tarjeta"></div>
         <form role="form">
-        <div id="id_usuario_div" class="form-group">
-            <label for="id_usuario">ID de usuario</label>
-            <input id="id_usuario" type="text" name="id_usuario" class="form-control" required>
+        <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input id="nombre" type="text" placeholder="Nombre del usuario" name="nombre" required class="form-control">
         </div>
         <div class="form-group">
-            <label for="mes">Mes</label>
-            <input id="mes" type="text" name="mes" required class="form-control">
+            <label for="correo">Correo</label>
+            <input id="correo" type="text" name="correo" required class="form-control">
         </div>
         <div class="form-group">
-            <label for="anio">Anio</label>
-            <input id="anio" type="text" maxlength="4" name="anio" required class="form-control">
+            <label for="password">Contraseña</label>
+            <input id="password" type="password" name="password" required class="form-control">
         </div>
-        <div id="act-form" style="display: none;">
-            <div class="form-group">
-                <label for="status">Pagado</label>
-                <select class="form-control" id="status">
-                    <option value="0">NO</option>
-                    <option value="1">SI</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="pronto">Pronto Pago</label>
-                <select class="form-control" id="pronto">
-                    <option value="null">-</option>
-                    <option value="0">No</option>
-                    <option value="1">Si</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="tipo">Forma de pago</label>
-                <select class="form-control" id="tipo">
-                    <option value="null">-</option>
-                    <option value="1">Tarjeta de crédito/débito</option>
-                    <option value="2">Paypal</option>
-                    <option value="3">Oxxo</option>
-                </select>
-            </div>
+        <div class="form-group">
+            <label for="con-password">Confirmar Contraseña</label>
+            <input id="con-password" type="password" name="con-password" required class="form-control">
         </div>
-        
+        <div class="form-group">
+            <label for="duenio">Dueño</label>
+            <select class="form-control" id="duenio">
+				<option value="0">NO</option>
+				<option value="1">SI</option>
+			</select>
+        </div>
+        <div class="form-group">
+            <label for="telefono">Teléfono</label>
+            <input id="telefono" type="text" name="telefono" required class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="direccion">Dirección</label>
+            <input id="direccion" type="text" name="direccion" required class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="verificado">Verificado</label>
+            <select class="form-control" id="verificado">
+				<option value="0">NO</option>
+				<option value="1">SI</option>
+			</select>
+        </div>
         <button id="btn-confirmar" type="button" class="subscribe btn btn-confirmar btn-block rounded-pill shadow-sm" onclick="agregaraviso()"> Confirmar  </button>
         </form>
 
@@ -251,11 +237,11 @@
 							<div class="footer_title">Enlaces</div>
 							<ul>
 								<li><a href="<?= base_url() ?>index.php/avisoscrud">Avisos</a></li>
-								<li><a href="#">Pagos</a></li>
+								<li><a href="<?= base_url() ?>index.php/pagoscrud">Pagos</a></li>
 								<li><a href="<?= base_url() ?>index.php/quejascrud">Quejas</a></li>
 								<li><a href="<?= base_url() ?>index.php/preguntascrud">Preguntas Frecuentes</a></li>
 								<li><a href="<?= base_url() ?>index.php/areascrud">Áreas</a></li>
-								<li><a href="<?= base_url() ?>index.php/usuarioscrud">Usuarios</a></li>
+								<li><a href="#">Usuarios</a></li>
 							</ul>
 						</div>
 					</div>
@@ -281,6 +267,6 @@
 <script src="<?= base_url() ?>static/plugins/progressbar/progressbar.min.js"></script>
 <script src="<?= base_url() ?>static/plugins/parallax-js-master/parallax.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCIwF204lFZg1y4kPSIhKaHEXMLYxxuMhA"></script>
-<script src="<?= base_url() ?>static/js/pagosCrud.js"></script>
+<script src="<?= base_url() ?>static/js/usuariosCrud.js"></script>
 </body>
 </html>

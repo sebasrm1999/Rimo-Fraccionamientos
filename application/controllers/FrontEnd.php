@@ -68,5 +68,11 @@ class FrontEnd extends CI_Controller{
       $this->load->view('areasCrud_view');
   
     }
+
+    public function usuarioscrud(){
+		
+      $this->load->view('usuariosCrud_view');
+  
+    }
 }
 ?>
