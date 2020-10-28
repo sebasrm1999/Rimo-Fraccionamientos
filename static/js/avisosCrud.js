@@ -31,7 +31,7 @@ $(document).ready(function()
 
             json.avisos.forEach(doc => {
                 avisos.innerHTML += `<tr>
-				<td><button class="btn btn-outline-light text-dark" >${doc.asunto}</button></td>
+				<td><button class="btn btn-outline-light text-dark" onclick="aviso(${doc.id_aviso})">${doc.asunto}</button></td>
 				<td>${doc.fecha}</td>
                 <td>${doc.hora}</td>
                 <td>
@@ -168,7 +168,7 @@ function cargartabla(){
 
             json.avisos.forEach(doc => {
                 avisos.innerHTML += `<tr>
-				<td><button class="btn btn-outline-light text-dark" >${doc.asunto}</button></td>
+				<td><button class="btn btn-outline-light text-dark" onclick="aviso(${doc.id_aviso})">${doc.asunto}</button></td>
 				<td>${doc.fecha}</td>
                 <td>${doc.hora}</td>
                 <td>
@@ -185,6 +185,46 @@ function cargartabla(){
             
         }
     });
+}
+
+function aviso(id){
+
+    $.ajax({
+        "url" : base_url + "BackEnd/aviso",
+        "type" : "post",
+        "data" : {
+            "id" : id
+        },
+        "dataType" : "json",
+        "success" : function(json){
+
+            if(json[0].tipo == 2){
+                
+                $.ajax({
+                    "url" : base_url + "BackEnd/usuario",
+                    "type" : "post",
+                    "data" : {
+                        "id" : json[0].id_usuario
+                    },
+                    "dataType" : "json",
+                    "success" : function(json2){
+
+                        document.getElementById('destinatario').innerHTML = json2[0].nombre;
+                        
+                    }
+                });
+            } else {
+                document.getElementById('destinatario').innerHTML = 'Todos';
+            }
+
+            $('#avisoModal').modal('show');
+
+            document.getElementById('aviso-titulo').innerHTML = json[0].asunto;
+            document.getElementById('descripcion').innerHTML = json[0].descripcion;
+            
+        }
+    });
+    
 }
 
 function cerrar(){

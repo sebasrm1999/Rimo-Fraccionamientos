@@ -159,7 +159,8 @@ class BackEnd_model extends CI_Model{
         $rs = $this->db->get("aviso");
         $obj = $rs->num_rows() == 0 ? NULL : $rs->result(); 
 
-		return $obj;
+        return $obj;
+		
     }
 
     public function delete_aviso($id){

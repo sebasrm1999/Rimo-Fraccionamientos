@@ -44,7 +44,7 @@ $(document).ready(function()
                 }
 
                 pagos.innerHTML += `<tr>
-                <td><button class="btn btn-outline-light text-dark" >${doc.mes} ${doc.anio}</button></td>
+                <td><button class="btn btn-outline-light text-dark" onclick="pago(${doc.id_pago})">${doc.mes} ${doc.anio}</button></td>
                 <td>${doc.nombre}</td>
                 <td>${pagado}</td>
                 <td>${fecha}</td>
@@ -188,7 +188,7 @@ function cargartabla(){
                 }
 
                 pagos.innerHTML += `<tr>
-                <td><button class="btn btn-outline-light text-dark" >${doc.mes} ${doc.anio}</button></td>
+                <td><button class="btn btn-outline-light text-dark" onclick="pago(${doc.id_pago})">${doc.mes} ${doc.anio}</button></td>
                 <td>${doc.nombre}</td>
                 <td>${pagado}</td>
                 <td>${fecha}</td>
@@ -213,6 +213,44 @@ function cerrar(){
     sessionStorage.clear();
 
     window.location.replace(`${base_url}index.php`);
+}
+
+function pago(id){
+
+    $.ajax({
+        "url" : base_url + "BackEnd/pago",
+        "type" : "post",
+        "data" : {
+            "id" : id
+        },
+        "dataType" : "json",
+        "success" : function(json){
+
+            $('#pagoModal').modal('show');
+
+            document.getElementById('pago-titulo').innerHTML = `${json[0].mes} ${json[0].anio}`;
+            document.getElementById('id-pago').innerHTML = json[0].id_pago;
+            document.getElementById('usuario-pago').innerHTML = json[0].nombre;
+            document.getElementById('status-pago').innerHTML = json[0].status == 1 ? 'Pagado' : 'Pendiente';
+
+            if(json[0].status == 1){
+                if(json[0].tipo == 1){
+                    document.getElementById('forma-pago').innerHTML = 'Tarjeta de Crédito/Débito';
+                } else if(json[0].tipo == 2){
+                    document.getElementById('forma-pago').innerHTML = 'Paypal';
+                } else if(json[0].tipo == 3){
+                    document.getElementById('forma-pago').innerHTML = 'Oxxo';
+                }
+                $('#info-pagado').css('display', 'block');
+                document.getElementById('fecha-pago').innerHTML = `${json[0].fecha} ${json[0].hora}`;
+                document.getElementById('pronto-pago').innerHTML = json[0].pronto == 1 ? 'Sí' : 'No';
+            } else {
+                $('#info-pagado').css('display', 'none');
+            }
+            
+        }
+    });
+    
 }
 
 function agregarpago(){

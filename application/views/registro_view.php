@@ -64,6 +64,15 @@
                     <div id="numero-error"></div>
                     </div>
 
+                    <div class="row form-group mb-4">
+                    
+                    <div class="col-md-12 mb-3 mb-md-0">
+                        <label class="font-weight-bold" for="telefono">Teléfono</label>
+                        <input type="text" id="telefono" class="form-control">
+                    </div>
+                    <div id="telefono-error"></div>
+                    </div>
+
                     <label class="font-weight-bold" for="optradio">¿Es dueño de una propiedad?</label>
 
                     <div class="row form-group my-4">

@@ -163,19 +163,38 @@
 	</div>
 
 	<!-- Modal -->
-	<div id="avisoModal" class="modal fade" role="dialog">
+	<div id="usuarioModal" class="modal fade" role="dialog">
 	<div class="modal-dialog modal-lg">
 
 		<!-- Modal content-->
 		<div class="modal-content">
 		<div class="modal-header">
-		<h4 class="modal-title text-white">Bienvenida</h4>
+		<h4 id="usuario-titulo" class="modal-title text-white">Bienvenida</h4>
 			<button type="button" class="close" data-dismiss="modal">&times;</button>
 			
 		</div>
 		<div class="modal-body">
-			<p>Bienvenido a myHome. Disfrute de su vivienda, le agradecemos enormemente su preferencia.</p>
-		</div>
+			<div class="row ml-3">
+				<h4><strong>Correo Electrónico :</strong></h4><h4 class="ml-1" id="correo-usuario"></h4>
+			</div>
+			<div class="row ml-3 mt-2">
+				<h4><strong>Dirección :</strong></h4><h4 class="ml-1" id="direccion-usuario"></h4>
+			</div>
+			<div class="row ml-3 mt-2 d-flex justify-content-between">
+					<div class="row ml-1">
+						<h4><strong>Teléfono :</strong></h4><h4 class="ml-1" id="telefono-usuario"></h4>
+					</div>
+					<div class="row mr-4">
+						<h4><strong>Dueño :</strong></h4><h4 class="ml-1" id="duenio-usuario"></h4>
+					</div>
+				</div>
+				<div class="row ml-3 mt-2">
+					<h4><strong>Verificado :</strong></h4><h4 class="ml-1" id="verificado-usuario"></h4>
+				</div>
+				<div class="row ml-3 mt-2">
+					<h4><strong>Fecha de registro :</strong></h4><h4 class="ml-1" id="fecha-usuario"></h4>
+				</div>
+			</div>
 		<div class="modal-footer">
 			<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
 		</div>

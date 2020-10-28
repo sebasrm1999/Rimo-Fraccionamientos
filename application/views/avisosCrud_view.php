@@ -157,12 +157,15 @@
 		<!-- Modal content-->
 		<div class="modal-content">
 		<div class="modal-header">
-		<h4 class="modal-title text-white">Bienvenida</h4>
+		<h4 id="aviso-titulo" class="modal-title text-white">Bienvenida</h4>
 			<button type="button" class="close" data-dismiss="modal">&times;</button>
 			
 		</div>
 		<div class="modal-body">
-			<p>Bienvenido a myHome. Disfrute de su vivienda, le agradecemos enormemente su preferencia.</p>
+		<div class="row ml-3">
+		<h4><strong>Para :</strong></h4><h4 class="ml-1" id="destinatario"></h4>
+		</div>
+			<p style="color: #000;" id="descripcion">Bienvenido a myHome. Disfrute de su vivienda, le agradecemos enormemente su preferencia.</p>
 		</div>
 		<div class="modal-footer">
 			<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>

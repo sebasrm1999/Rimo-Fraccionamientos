@@ -129,18 +129,18 @@
 	</div>
 
 	<!-- Modal -->
-	<div id="avisoModal" class="modal fade" role="dialog">
+	<div id="preguntaModal" class="modal fade" role="dialog">
 	<div class="modal-dialog modal-lg">
 
 		<!-- Modal content-->
 		<div class="modal-content">
 		<div class="modal-header">
-		<h4 class="modal-title text-white">Bienvenida</h4>
+		<h4 id="pregunta-titulo" class="modal-title text-white">Bienvenida</h4>
 			<button type="button" class="close" data-dismiss="modal">&times;</button>
 			
 		</div>
 		<div class="modal-body">
-			<p>Bienvenido a myHome. Disfrute de su vivienda, le agradecemos enormemente su preferencia.</p>
+			<p style="color: #000;" id="descripcion-pregunta">Bienvenido a myHome. Disfrute de su vivienda, le agradecemos enormemente su preferencia.</p>
 		</div>
 		<div class="modal-footer">
 			<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>

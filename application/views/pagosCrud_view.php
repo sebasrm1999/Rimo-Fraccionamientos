@@ -177,18 +177,39 @@
 	</div>
 
 	<!-- Modal -->
-	<div id="avisoModal" class="modal fade" role="dialog">
+	<div id="pagoModal" class="modal fade" role="dialog">
 	<div class="modal-dialog modal-lg">
 
 		<!-- Modal content-->
 		<div class="modal-content">
 		<div class="modal-header">
-		<h4 class="modal-title text-white">Bienvenida</h4>
+		<h4 id="pago-titulo" class="modal-title text-white">Bienvenida</h4>
 			<button type="button" class="close" data-dismiss="modal">&times;</button>
 			
 		</div>
 		<div class="modal-body">
-			<p>Bienvenido a myHome. Disfrute de su vivienda, le agradecemos enormemente su preferencia.</p>
+			<div class="row ml-3">
+				<h4><strong>Folio de pago :</strong></h4><h4 class="ml-1" id="id-pago"></h4>
+			</div>
+			<div class="row float-right mr-3 mt-2">
+				<h4><strong>Usuario :</strong></h4><h4 class="ml-1" id="usuario-pago"></h4>
+			</div>
+			<div class="row ml-3 mt-2">
+				<h4><strong>Status :</strong></h4><h4 class="ml-1" id="status-pago"></h4>
+			</div>
+			<div class="mt-2" id="info-pagado" style="display: none;">
+				<div class="row ml-3 d-flex justify-content-between">
+					<div class="row ml-1">
+						<h4><strong>Pronto Pago :</strong></h4><h4 class="ml-1" id="pronto-pago"></h4>
+					</div>
+					<div class="row mr-4">
+						<h4><strong>Fecha de pago :</strong></h4><h4 class="ml-1" id="fecha-pago"></h4>
+					</div>
+				</div>
+				<div class="row ml-3 mt-2">
+					<h4><strong>Forma de Pago :</strong></h4><h4 class="ml-1" id="forma-pago"></h4>
+				</div>
+			</div>
 		</div>
 		<div class="modal-footer">
 			<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>

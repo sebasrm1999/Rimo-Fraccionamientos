@@ -38,7 +38,7 @@ $(document).ready(function()
                 }
                 
                 usuarios.innerHTML += `<tr>
-                <td>${doc.nombre}</td>
+                <td><button class="btn btn-outline-light text-dark" onclick="usuario(${doc.id_usuario})">${doc.nombre}</button></td>
                 <td>${doc.correo}</td>
                 <td>${doc.fecha_registro}</td>
                 <td>${verificado}</td>
@@ -165,7 +165,7 @@ function cargartabla(){
                 }
                 
                 usuarios.innerHTML += `<tr>
-                <td>${doc.nombre}</td>
+                <td><button class="btn btn-outline-light text-dark" onclick="usuario(${doc.id_usuario})">${doc.nombre}</button></td>
                 <td>${doc.correo}</td>
                 <td>${doc.fecha_registro}</td>
                 <td>${verificado}</td>
@@ -189,6 +189,32 @@ function cerrar(){
     sessionStorage.clear();
 
     window.location.replace(`${base_url}index.php`);
+}
+
+function usuario(id){
+
+    $.ajax({
+        "url" : base_url + "BackEnd/usuario",
+        "type" : "post",
+        "data" : {
+            "id" : id
+        },
+        "dataType" : "json",
+        "success" : function(json){
+
+            $('#usuarioModal').modal('show');
+
+            document.getElementById('usuario-titulo').innerHTML = json[0].nombre;
+            document.getElementById('correo-usuario').innerHTML = json[0].correo;
+            document.getElementById('fecha-usuario').innerHTML = json[0].fecha_registro;
+            document.getElementById('direccion-usuario').innerHTML = json[0].direccion;
+            document.getElementById('telefono-usuario').innerHTML = json[0].telefono;
+            document.getElementById('duenio-usuario').innerHTML = json[0].duenio == 1 ? 'Sí' : 'No';
+            document.getElementById('verificado-usuario').innerHTML = json[0].verificado == 1 ? 'Sí' : 'No';
+            
+        }
+    });
+    
 }
 
 function actualizarform(id){

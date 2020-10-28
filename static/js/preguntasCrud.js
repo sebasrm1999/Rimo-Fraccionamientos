@@ -31,7 +31,7 @@ $(document).ready(function()
 
             json.preguntas.forEach(doc => {
                 preguntas.innerHTML += `<tr>
-				<td><button class="btn btn-outline-light text-dark" >${doc.asunto}</button></td>
+				<td><button class="btn btn-outline-light text-dark" onclick="pregunta(${doc.id_pregunta})">${doc.asunto}</button></td>
                 <td>
                 <button class="btn btn-outline-danger" onclick="borrarpregunta(${doc.id_pregunta})" ><i class="fa fa-trash fa-3x"></i></button>
                 <button id="btn-actualizar-${doc.id_pregunta}" class="btn btn-outline-warning" onclick="actualizarform(${doc.id_pregunta})"><i class="fa fa-pencil fa-3x"></i></button>
@@ -158,7 +158,7 @@ function cargartabla(){
 
             json.preguntas.forEach(doc => {
                 preguntas.innerHTML += `<tr>
-				<td><button class="btn btn-outline-light text-dark" >${doc.asunto}</button></td>
+				<td><button class="btn btn-outline-light text-dark" onclick="pregunta(${doc.id_pregunta})">${doc.asunto}</button></td>
                 <td>
                 <button class="btn btn-outline-danger" onclick="borrarpregunta(${doc.id_pregunta})" ><i class="fa fa-trash fa-3x"></i></button>
                 <button id="btn-actualizar-${doc.id_pregunta}" class="btn btn-outline-warning" onclick="actualizarform(${doc.id_pregunta})"><i class="fa fa-pencil fa-3x"></i></button>
@@ -179,6 +179,27 @@ function cerrar(){
     sessionStorage.clear();
 
     window.location.replace(`${base_url}index.php`);
+}
+
+function pregunta(id){
+
+    $.ajax({
+        "url" : base_url + "BackEnd/pregunta",
+        "type" : "post",
+        "data" : {
+            "id" : id
+        },
+        "dataType" : "json",
+        "success" : function(json){
+
+            $('#preguntaModal').modal('show');
+
+            document.getElementById('pregunta-titulo').innerHTML = json[0].asunto;
+            document.getElementById('descripcion-pregunta').innerHTML = json[0].descripcion;
+            
+        }
+    });
+    
 }
 
 function agregarpregunta(){
