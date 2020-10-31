@@ -505,19 +505,13 @@ class BackEnd extends CI_Controller{
 
     public function actualizaqueja(){
         $id    = $this->input->post( "id" );
-        $idusu      = $this->input->post( "id_usuario" );
         $asunto    = $this->input->post( "asunto" );
         $descripcion    = $this->input->post( "descripcion" );
-        $fecha    = $this->input->post( "fecha" );
-        $hora    = $this->input->post( "hora" );
         $idarea    = $this->input->post( "id_area" );
         $status    = $this->input->post( "status" );
 
         $data = array(
             'id_queja' => $id,
-            'fecha' => $fecha,
-            'hora' => $hora,
-            'id_usuario' => $idusu,
             'asunto' => $asunto,
             'descripcion' => $descripcion,
             'id_area' => $idarea,
@@ -590,19 +584,11 @@ class BackEnd extends CI_Controller{
 
     public function actualizacomentario(){
         $id    = $this->input->post( "id" );
-        $idusu      = $this->input->post( "id_usuario" );
         $texto    = $this->input->post( "texto" );
-        $fecha    = $this->input->post( "fecha" );
-        $hora    = $this->input->post( "hora" );
-        $idqueja    = $this->input->post( "id_queja" );
 
         $data = array(
             'id_comentario' => $id,
-            'fecha' => $fecha,
-            'hora' => $hora,
-            'id_usuario' => $idusu,
-            'texto' => $texto,
-            'id_queja' => $idqueja
+            'texto' => $texto
             ); 
 
         $obj = $this->BackEnd_model->update_comentario($data);
