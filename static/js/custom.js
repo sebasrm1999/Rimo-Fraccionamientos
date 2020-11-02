@@ -25,6 +25,8 @@ $(document).ready(function()
 
 	"use strict";
 
+	avisosgenerales();
+
 	/* 
 
 	1. Vars and Inits
@@ -260,4 +262,49 @@ function cerrar(){
     sessionStorage.clear();
 
     window.location.replace(`${base_url}index.php`);
+}
+
+function avisosgenerales(){
+	var avisos = document.getElementById('avisosGenerales');
+
+    avisos.innerHTML= '';
+    
+    $.ajax({
+        "url" : base_url + "BackEnd/avisos",
+        "type" : "get",
+        "dataType" : "json",
+        "success" : function(json){
+
+			var contador = 0;
+            json.avisos.forEach(doc => {
+				if(doc.tipo == 1){
+					var activo = '';
+					if(contador === 0){
+					activo = 'active';
+					} else {
+					activo = '';
+					}
+					avisos.innerHTML += `<div class="carousel-item ${activo}">
+					<div class="background_image" style="background-image:url(${base_url}static/images/index.jpg)"></div>
+					<div class="home_container">
+						<div class="container">
+							<div class="row">
+								<div class="col">
+									<div class="home_content rounded my-4">
+										<div class="home_title"><h1>${doc.asunto}</h1></div>
+										<div class="home_description"><p>${doc.descripcion}</p></div>
+										<div class="d-flex flex-wrap align-content-end float-right">${doc.fecha} ${doc.hora}</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>`;
+				contador++;
+				}
+                
+            });
+            
+        }
+    });
 }

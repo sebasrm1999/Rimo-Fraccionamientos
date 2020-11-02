@@ -66,65 +66,40 @@
 		<div class="home_slider_container">
 		<h2 class="avisos">Avisos Generales</h2>
 		
-			 <div class="owl-carousel owl-theme home_slider">
-			 	
-			 	<!-- Slide -->
-			 	<div class="slide">
-			 		<div class="background_image" style="background-image:url(<?= base_url() ?>static/images/index.jpg)"></div>
-			 		<div class="home_container">
-			 			<div class="container">
-			 				<div class="row">
-			 					<div class="col">
-			 						<div class="home_content rounded">
-			 							<div class="home_title"><h1>Avería en drenaje</h1></div>
-			 							<div class="home_description"><p>Escaseará el agua del drenaje hasta el día 31 de octubre debido a mantenimiento. Les ofrecemos una sincera disculpa por las molestias</p></div>
-			 						</div>
-			 					</div>
-			 				</div>
-			 			</div>
-			 		</div>
-			 	</div>
+		<div id="demo" class="carousel slide" data-interval="false" data-ride="carousel">
 
-			 	<!-- Slide -->
-			 	<div class="slide">
-			 		<div class="background_image" style="background-image:url(<?= base_url() ?>static/images/index.jpg)"></div>
-			 		<div class="home_container">
-			 			<div class="container">
-			 				<div class="row">
-			 					<div class="col">
-			 						<div class="home_content rounded">
-			 							<div class="home_title"><h1>Avería en drenaje</h1></div>
-			 							<div class="home_description"><p>Avería en desague</p></div>
-			 						</div>
-			 					</div>
-			 				</div>
-			 			</div>
-			 		</div>
-			 	</div>
+			<!-- The slideshow -->
+			<div id="avisosGenerales" class="carousel-inner">
+			<div class="carousel-item active">
+				<img src="" class="mx-auto d-block mt-3 rounded-circle" style="height: 200px; width: 200px;" alt="Los Angeles">
+				<div class="mt-3">
+				<div class="col d-flex justify-content-center mb-3">
+					<span class="border bg-info text-white rounded p-1">Experiencia:</span>  
+				</div>
+				<div class="col d-flex justify-content-center mb-3">
+					<span class="border bg-info text-white rounded p-1">Edad:</span>  
+				</div>
+				</div>
+				<div class="row justify-content-center mt-3">
+				<button class="btn btn-light mx-auto text-info"><i class="fas fa-file-alt" style="padding-right: 5px;"></i>Ver Currículum</button>
+				<button class="btn btn-light mx-auto text-info"><i class="fas fa-comments" style="padding-right: 5px;"></i>Enviar Mensaje</button>
+				</div>
+				<div class="row justify-content-center mt-3">
+				<button class="btn btn-danger mx-auto text-white"><i class="fas fa-trash" style="padding-right: 5px;"></i>Eliminar Solicitud</button>  
+				</div>
+				
+			</div>
+			</div>
 
-			 	<!-- Slide -->
-			 	<div class="slide">
-			 		<div class="background_image" style="background-image:url(<?= base_url() ?>static/images/index.jpg)"></div>
-			 		<div class="home_container">
-			 			<div class="container">
-			 				<div class="row">
-			 					<div class="col">
-			 						<div class="home_content rounded">
-			 							<div class="home_title"><h1>Avería en drenaje</h1></div>
-			 							<div class="home_description"><p>Avería en desague</p></div>
-			 						</div>
-			 					</div>
-			 				</div>
-			 			</div>
-			 		</div>
-			 	</div>
+			<!-- Left and right controls -->
+			<a class="carousel-control-prev" href="#demo" data-slide="prev">
+				<div class="home_slider_nav_left"><i class="fa fa-angle-left" aria-hidden="true"></i></div>
+			</a>
+			<a class="carousel-control-next" href="#demo" data-slide="next">
+				<div class="home_slider_nav"><i class="fa fa-angle-right" aria-hidden="true"></i></div>
+			</a>
 
-			 </div>
-
-			 <!-- Home Slider Navigation -->
-			 <div class="home_slider_nav"><i class="fa fa-angle-right" aria-hidden="true"></i></div>
-			 
-			 <div class="home_slider_nav_left"><i class="fa fa-angle-left" aria-hidden="true"></i></div>
+			</div>
 			 
 		</div>
 	</div>
