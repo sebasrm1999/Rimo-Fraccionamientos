@@ -79,14 +79,14 @@
 
                     <div class="col-md-3 mb-md-0">
                         <div class="radio">
-                        <label><input class="mr-2" type="radio" name="optradio" checked>Soy dueño</label>
+                        <label><input class="mr-2" type="radio" name="optradio" value="1" checked>Soy dueño</label>
                         </div>
                     </div>
                     
                     
                     <div class="col-md-3 mb-md-0">
                         <div class="radio">
-                            <label><input class="mr-2" type="radio" name="optradio">No soy dueño</label>
+                            <label><input class="mr-2" type="radio" value="2" name="optradio">No soy dueño</label>
                         </div>
                     </div>
 
@@ -130,7 +130,7 @@
 
                     <div class="row justify-content-center">
                     <div class="justify-content-center">
-                    <button id="btn-login" class="btn btn-lg" onclick="login()">Registrarme</button>
+                    <button id="btn-login" class="btn btn-lg" onclick="registro()">Registrarme</button>
                     </div>
                     </div>
 
@@ -142,6 +142,27 @@
         </div>
       </div>
     </div>
+
+    <div id="alertaModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+      <h4 id="info-modal-titulo" class="modal-title text-white">Error</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        
+      </div>
+      <div class="modal-body">
+        <p id="info-modal-cuerpo" style="color: 000#;"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 
   <script src="<?= base_url() ?>static/js/jquery-3.3.1.min.js"></script>
 <script src="<?= base_url() ?>static/styles/bootstrap-4.1.2/popper.js"></script>
