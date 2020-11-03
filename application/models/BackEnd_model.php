@@ -215,6 +215,22 @@ class BackEnd_model extends CI_Model{
 		return $obj;
     }
 
+    public function get_pagosusuario($id){
+        $query = "SELECT pago.*,usuario.nombre from pago, usuario WHERE pago.id_usuario=usuario.id_usuario And pago.id_usuario=".$id." AND status=1";
+        $rs = $this->db->query($query);
+        $obj['pagos'] = $rs->num_rows() == 0 ? NULL : $rs->result(); 
+
+		return $obj;
+    }
+
+    public function get_pagoactual($id){
+        $query = "SELECT * from pago WHERE id_usuario=".$id." AND id_pago = (SELECT MAX(id_pago) FROM pago WHERE id_usuario=".$id.")";
+        $rs = $this->db->query($query);
+        $obj = $rs->num_rows() == 0 ? NULL : $rs->result(); 
+
+		return $obj;
+    }
+
     public function delete_pago($id){
         $this->db->where('id_pago', $id);
         $this->db->delete('pago');

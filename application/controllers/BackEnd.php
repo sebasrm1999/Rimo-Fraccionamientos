@@ -461,6 +461,43 @@ class BackEnd extends CI_Controller{
         echo json_encode( $obj );
     }
 
+    public function pagosxusuario(){
+        $id    = $this->input->post( "id_usuario" ); 
+        $obj = $this->BackEnd_model->get_pagosusuario($id);
+
+        $this->output->set_content_type( "application/json" );
+        echo json_encode( $obj );
+    }
+
+    public function pagoactual(){
+        $id    = $this->input->post( "id_usuario" ); 
+        $obj = $this->BackEnd_model->get_pagoactual($id);
+
+        $this->output->set_content_type( "application/json" );
+        echo json_encode( $obj );
+    }
+
+    public function pagar(){
+        $id    = $this->input->post( "id" );
+        $tipo    = $this->input->post( "tipo" );
+        $fecha      = date("Y-m-d");
+        $hora    = date("H:i:s");
+        $data = array(
+            'id_pago' => $id,
+            'status' => 1,
+            'tipo' => $tipo,
+            'fecha' => $fecha,
+            'hora' => $hora,
+            'pronto' => 1
+            ); 
+
+        $obj = $this->BackEnd_model->update_pago($data);
+
+        $this->output->set_content_type( "application/json" );
+        echo json_encode( $obj );
+
+    }
+
     public function borrapago(){
         $id    = $this->input->post( "id" );
 

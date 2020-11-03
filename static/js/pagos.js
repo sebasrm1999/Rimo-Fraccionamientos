@@ -2,18 +2,9 @@ let base_url = 'http://localhost/myhome_ci/';
 
 $(document).ready(function()
 {
-    $('#dtBasicExample').DataTable({
-		"pagingType": "simple_numbers" // "simple" option for 'Previous' and 'Next' buttons only
-	  });
-      $('.dataTables_length').addClass('bs-select');
+    cargartabla();
       
-      console.log($('#estado').text());
-      
-      if($('#estado').text() == 'Pendiente'){
-        $('#btn-pagar').css('display', 'block');
-      } else {
-        $('#btn-pagar').css('display', 'none'); 
-      }
+      pagoactual();
 
       var header = $('.header');
 
@@ -103,4 +94,115 @@ function cerrar(){
     sessionStorage.clear();
 
     window.location.replace(`${base_url}index.php`);
+}
+
+function pagoactual(){
+
+	var id = sessionStorage.getItem('id');
+
+    $.ajax({
+        "url" : base_url + "BackEnd/pagoactual",
+        "type" : "post",
+        "data" : {
+            "id_usuario" : id
+        },
+        "dataType" : "json",
+        "success" : function(json){
+
+			document.getElementById('mes').innerHTML = json[0].mes;
+			document.getElementById('estado').innerHTML = json[0].status == 1 ? 'Pagado' : 'Pendiente';
+			$("#btn-pagar-tarjeta").attr("onclick",`pagar(${json[0].id_pago})`);
+
+			if($('#estado').text() == 'Pendiente'){
+				$('#btn-pagar').css('display', 'block');
+			  } else {
+				$('#btn-pagar').css('display', 'none'); 
+			  }
+            
+        }
+    });
+}
+
+function cargartabla(){
+
+    $('#dtBasicExample').DataTable().clear().destroy();
+    
+	var pagos = document.getElementById('pagos');
+	var id = sessionStorage.getItem('id');
+
+    pagos.innerHTML= '';
+    
+    $.ajax({
+        "url" : base_url + "BackEnd/pagosxusuario",
+        "type" : "post",
+        "data" : {
+            "id_usuario" : id
+        },
+        "dataType" : "json",
+        "success" : function(json){
+
+            json.pagos.forEach(doc => {
+                pagos.innerHTML += `<tr>
+				<td><button class="btn btn-outline-light text-dark" onclick="pago(${doc.id_pago})">${doc.mes}</button></td>
+				<td>${doc.anio}</td>
+				<td>${doc.fecha}</td>
+				<td>${doc.hora}</td>
+				<td>${doc.pronto == 1 ? 'Sí' : 'No'}</td>
+				</tr>`;
+            });
+
+            $('#dtBasicExample').DataTable({
+                "destroy": true,
+                "pagingType": "simple_numbers"
+              });
+            
+        }
+    });
+}
+
+function pagar(id){
+	let nombre = document.getElementById('nombre-tarjeta').value;
+    let numero = document.getElementById('numero-tarjeta').value;
+    let mes = document.getElementById('mes-expiracion').value;
+    let anio = document.getElementById('anio-expiracion').value;
+	let cvv = document.getElementById('cvv').value;
+	
+	document.getElementById('cvv-error').innerHTML = '';
+	document.getElementById('expiracion-error').innerHTML = '';
+	document.getElementById('numero-error').innerHTML = '';
+
+    if(mes != '' && nombre != '' && cvv != '' && numero != '' && anio != ''){
+        if(numero.length == 16){
+            if(mes.length == 2 && anio.length == 2){
+                if(cvv.length == 3){
+					$.ajax({
+						"url" : base_url + "BackEnd/pagar",
+						"type" : "post",
+						"data" : {
+							"id" : id,
+							"tipo" : 1
+						},
+						"dataType" : "json",
+						"success" : function(json){
+							if(json.resultado){
+								pagoactual();
+								cargartabla();
+								$('#pagoModal').modal('hide');
+							} else {
+								alert('Error inesperado');
+							}
+						}
+					});
+				} else {
+					document.getElementById('cvv-error').innerHTML = 'El CVV de la tarjeta debe contener 3 dígitos';
+				}
+            } else {
+                document.getElementById('expiracion-error').innerHTML = 'El mes y año de expiración deben contener 2 dígitos cada uno';
+            }
+        } else {
+            document.getElementById('numero-error').innerHTML = 'El número de la tarjeta debe contener 16 dígitos';
+        }
+    } else {
+        alert('Debe llenar todos los campos...');
+    }
 }

@@ -10,6 +10,8 @@ function registro(){
     let telefono = document.getElementById('telefono').value;
     let duenio = $('input[name="optradio"]:checked').val();
 
+    document.getElementById('password-error').innerHTML = '';
+
     if(email != '' && password != '' && nombre != '' && calle != '' && numero != '' && telefono != '' && passwordConf != '' ){
         if(password.length >= 8){
             if(password === passwordConf){

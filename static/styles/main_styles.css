@@ -1783,3 +1783,6 @@ section
 #password-error{
 	color: #ff0000;
 }
+.error{
+	color: #ff0000;
+}

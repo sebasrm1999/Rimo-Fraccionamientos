@@ -107,49 +107,7 @@
 				</th>
 				</tr>
 			</thead>
-			<tbody>
-				<tr>
-				<td><button class="btn btn-outline-light text-dark" >Enero</button></td>
-				<td>2011</td>
-				<td>2011/04/25</td>
-				<td>11:04</td>
-				<td>No</td>
-				</tr>
-				<tr>
-				<td><button class="btn btn-outline-light text-dark">Febrero</button></td>
-				<td>2011</td>
-				<td>2011/07/25</td>
-				<td>12:35</td>
-				<td>No</td>
-				</tr>
-				<tr>
-				<td><button class="btn btn-outline-light text-dark">Marzo</button></td>
-				<td>2009</td>
-				<td>2009/01/12</td>
-				<td>16:45</td>
-				<td>Si</td>
-				</tr>
-				<tr>
-				<td><button class="btn btn-outline-light text-dark">Abril</button></td>
-				<td>2012</td>
-				<td>2012/03/29</td>
-				<td>20:50</td>
-				<td>Si</td>
-				</tr>
-				<tr>
-				<td><button class="btn btn-outline-light text-dark" data-toggle="modal" data-target="#avisoModal">Mayo</button></td>
-				<td>2008</td>
-				<td>2008/11/28</td>
-				<td>14:32</td>
-				<td>No</td>
-				</tr>
-				<tr>
-				<td><button class="btn btn-outline-light text-dark">Junio</button></td>
-				<td>2012</td>
-				<td>2012/12/02</td>
-				<td>17:13</td>
-				<td>Si</td>
-				</tr>
+			<tbody id="pagos">
 			</tbody>
 			<tfoot>
 				<tr>
@@ -200,12 +158,13 @@
 					<form role="form">
 					<div class="form-group">
 						<label for="username">Nombre completo (en la tajeta)</label>
-						<input type="text" name="username" required class="form-control">
+						<input type="text" id="nombre-tarjeta" name="username" required class="form-control">
+						<div class="error" id="nombre-error"></div>
 					</div>
 					<div class="form-group">
 						<label for="cardNumber">Número de tarjeta</label>
 						<div class="input-group">
-						<input type="text" maxlength="16" name="cardNumber" placeholder="Tu número de tarjeta" class="form-control" required>
+						<input type="text" id="numero-tarjeta" maxlength="16" name="cardNumber" placeholder="Tu número de tarjeta" class="form-control" required>
 						<div class="input-group-append">
 							<span class="input-group-text text-muted">
 								<i class="fa fa-cc-visa mx-1"></i>
@@ -214,15 +173,17 @@
 							</span>
 						</div>
 						</div>
+						<div class="error" id="numero-error"></div>
 					</div>
 					<div class="row">
 						<div class="col-sm-8">
 						<div class="form-group">
 							<label><span class="hidden-xs">Expiración</span></label>
 							<div class="input-group">
-							<input type="number" placeholder="MM" name="" min="1" max="12" class="form-control" required>
-							<input type="number" placeholder="YY" name="" min="00" max="99" class="form-control" required>
+							<input id="mes-expiracion" type="number" placeholder="MM" name="" min="1" max="12" class="form-control" required>
+							<input id="anio-expiracion" type="number" placeholder="YY" name="" min="00" max="99" class="form-control" required>
 							</div>
+							<div class="error" id="expiracion-error"></div>
 						</div>
 						</div>
 						<div class="col-sm-4">
@@ -230,13 +191,14 @@
 							<label data-toggle="tooltip" title="Código de 3 dígitos en parte trasera de su tarjeta">CVV
 								<i class="fa fa-question-circle"></i>
 							</label>
-							<input type="text" maxlength="3" required class="form-control">
+							<input id="cvv" type="text" maxlength="3" required class="form-control">
+							<div class="error" id="cvv-error"></div>
 						</div>
 						</div>
 
 
 					</div>
-					<button type="button" class="subscribe btn btn-confirmar btn-block rounded-pill shadow-sm"> Confirmar  </button>
+					<button type="button" id="btn-pagar-tarjeta" class="subscribe btn btn-confirmar btn-block rounded-pill shadow-sm"> Confirmar  </button>
 					</form>
 
                 </div>

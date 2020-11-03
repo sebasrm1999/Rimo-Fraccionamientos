@@ -130,11 +130,6 @@
 				</tr>
 			</thead>
 			<tbody id="avisosPersonales">
-				<tr>
-				<td><button class="btn btn-outline-light text-dark" >Pago atrasado</button></td>
-				<td>2011/04/25</td>
-				<td>11:04</td>
-				</tr>
 			</tbody>
 			<tfoot>
 				<tr>
