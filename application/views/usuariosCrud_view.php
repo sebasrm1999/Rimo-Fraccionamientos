@@ -76,6 +76,9 @@
 			<table id="dtBasicExample" class="table table-striped table-bordered table-responsive-md" cellspacing="0" width="100%">
 			<thead>
 				<tr>
+				<th class="th" style="width:5%;">ID
+
+				</th>
 				<th class="th" style="width:30%;">Nombre
 
 				</th>
@@ -85,7 +88,7 @@
                 <th class="th" style="width:20%;">Fecha registro
 
 				</th>
-                <th class="th" style="width:10%;">Verificado
+                <th class="th" style="width:5%;">Verificado
 
 				</th>
                 <th class="th" style="width:20%;">
@@ -98,6 +101,8 @@
 			</tbody>
 			<tfoot>
 				<tr>
+				<th>ID
+				</th>
 				<th>Nombre
 				</th>
                 <th>Correo

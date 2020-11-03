@@ -304,6 +304,14 @@ class BackEnd extends CI_Controller{
         echo json_encode( $obj );
     }
 
+    public function avisopersonal(){
+        $idusuario    = $this->input->post( "id_usuario" ); 
+        $obj = $this->BackEnd_model->get_avisopersonal($idusuario);
+
+        $this->output->set_content_type( "application/json" );
+        echo json_encode( $obj );
+    }
+
     public function actualizaaviso(){
         $id    = $this->input->post( "id" );
         $asunto      = $this->input->post( "asunto" );

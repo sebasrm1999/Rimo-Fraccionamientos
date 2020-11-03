@@ -38,6 +38,7 @@ $(document).ready(function()
                 }
                 
                 usuarios.innerHTML += `<tr>
+                <td>${doc.id_usuario}</td>
                 <td><button class="btn btn-outline-light text-dark" onclick="usuario(${doc.id_usuario})">${doc.nombre}</button></td>
                 <td>${doc.correo}</td>
                 <td>${doc.fecha_registro}</td>
@@ -165,6 +166,7 @@ function cargartabla(){
                 }
                 
                 usuarios.innerHTML += `<tr>
+                <td>${doc.id_usuario}</td>
                 <td><button class="btn btn-outline-light text-dark" onclick="usuario(${doc.id_usuario})">${doc.nombre}</button></td>
                 <td>${doc.correo}</td>
                 <td>${doc.fecha_registro}</td>

@@ -163,6 +163,15 @@ class BackEnd_model extends CI_Model{
 		
     }
 
+    public function get_avisopersonal($id){
+        $this->db->where('id_usuario', $id);
+        $rs = $this->db->get("aviso");
+        $obj['avisos'] = $rs->num_rows() == 0 ? NULL : $rs->result(); 
+
+        return $obj;
+		
+    }
+
     public function delete_aviso($id){
         $this->db->where('id_aviso', $id);
         $this->db->delete('aviso');

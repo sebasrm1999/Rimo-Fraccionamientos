@@ -129,36 +129,11 @@
 				</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody id="avisosPersonales">
 				<tr>
 				<td><button class="btn btn-outline-light text-dark" >Pago atrasado</button></td>
 				<td>2011/04/25</td>
 				<td>11:04</td>
-				</tr>
-				<tr>
-				<td><button class="btn btn-outline-light text-dark">Pago atrasado</button></td>
-				<td>2011/07/25</td>
-				<td>12:35</td>
-				</tr>
-				<tr>
-				<td><button class="btn btn-outline-light text-dark">Pago atrasado</button></td>
-				<td>2009/01/12</td>
-				<td>16:45</td>
-				</tr>
-				<tr>
-				<td><button class="btn btn-outline-light text-dark">Descuento en próxima mensualidad</button></td>
-				<td>2012/03/29</td>
-				<td>20:50</td>
-				</tr>
-				<tr>
-				<td><button class="btn btn-outline-light text-dark" data-toggle="modal" data-target="#avisoModal">Bienvenido</button></td>
-				<td>2008/11/28</td>
-				<td>14:32</td>
-				</tr>
-				<tr>
-				<td><button class="btn btn-outline-light text-dark">Descuento en próxima mensualidad</button></td>
-				<td>2012/12/02</td>
-				<td>17:13</td>
 				</tr>
 			</tbody>
 			<tfoot>
@@ -182,12 +157,12 @@
 		<!-- Modal content-->
 		<div class="modal-content">
 		<div class="modal-header">
-		<h4 class="modal-title text-white">Bienvenida</h4>
+		<h4 id="aviso-titulo" class="modal-title text-white">Bienvenida</h4>
 			<button type="button" class="close" data-dismiss="modal">&times;</button>
 			
 		</div>
 		<div class="modal-body">
-			<p>Bienvenido a myHome. Disfrute de su vivienda, le agradecemos enormemente su preferencia.</p>
+			<p style="color: #000;" id="descripcion">Bienvenido a myHome. Disfrute de su vivienda, le agradecemos enormemente su preferencia.</p>
 		</div>
 		<div class="modal-footer">
 			<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>

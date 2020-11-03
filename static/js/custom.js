@@ -18,12 +18,7 @@ let base_url = 'http://localhost/myhome_ci/';
 
 $(document).ready(function()
 {
-	$('#dtBasicExample').DataTable({
-		"pagingType": "simple_numbers" // "simple" option for 'Previous' and 'Next' buttons only
-	  });
-	  $('.dataTables_length').addClass('bs-select');
-
-	"use strict";
+	cargartabla();
 
 	avisosgenerales();
 
@@ -264,6 +259,41 @@ function cerrar(){
     window.location.replace(`${base_url}index.php`);
 }
 
+function cargartabla(){
+
+    $('#dtBasicExample').DataTable().clear().destroy();
+    
+	var avisos = document.getElementById('avisosPersonales');
+	var id = sessionStorage.getItem('id');
+
+    avisos.innerHTML= '';
+    
+    $.ajax({
+        "url" : base_url + "BackEnd/avisopersonal",
+        "type" : "post",
+        "data" : {
+            "id_usuario" : id
+        },
+        "dataType" : "json",
+        "success" : function(json){
+
+            json.avisos.forEach(doc => {
+                avisos.innerHTML += `<tr>
+				<td><button class="btn btn-outline-light text-dark" onclick="aviso(${doc.id_aviso})">${doc.asunto}</button></td>
+				<td>${doc.fecha}</td>
+                <td>${doc.hora}</td>
+				</tr>`;
+            });
+
+            $('#dtBasicExample').DataTable({
+                "destroy": true,
+                "pagingType": "simple_numbers"
+              });
+            
+        }
+    });
+}
+
 function avisosgenerales(){
 	var avisos = document.getElementById('avisosGenerales');
 
@@ -307,4 +337,25 @@ function avisosgenerales(){
             
         }
     });
+}
+
+function aviso(id){
+
+    $.ajax({
+        "url" : base_url + "BackEnd/aviso",
+        "type" : "post",
+        "data" : {
+            "id" : id
+        },
+        "dataType" : "json",
+        "success" : function(json){
+
+            $('#avisoModal').modal('show');
+
+            document.getElementById('aviso-titulo').innerHTML = json[0].asunto;
+            document.getElementById('descripcion').innerHTML = json[0].descripcion;
+            
+        }
+    });
+    
 }
