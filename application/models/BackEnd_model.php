@@ -282,6 +282,14 @@ class BackEnd_model extends CI_Model{
 		return $obj;
     }
 
+    public function get_quejausuario($id){
+        $query = "SELECT queja.*, area.nombre from queja, area WHERE id_usuario=".$id." AND queja.id_area=area.id_area";
+        $rs = $this->db->query($query);
+        $obj['quejas'] = $rs->num_rows() == 0 ? NULL : $rs->result(); 
+
+		return $obj;
+    }
+
     public function delete_queja($id){
         $this->db->where('id_queja', $id);
         $this->db->delete('queja');

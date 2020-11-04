@@ -58,37 +58,6 @@
 	</div>
 
     <div class="container" id="preguntas">
-    <div class="col-md-12">
-
-        <div class="job-post-item bg-white p-4 d-block d-md-flex align-items-center rounded mt-3">
-
-        <div class="mb-4 mb-md-0 mr-5">
-
-            <div class=" d-flex align-items-center">
-            <h2 class="mr-3 text-black h3">¿En dónde puedo dejar una queja?</h2>
-            </div>
-            <div class=" d-block d-md-flex">
-            <div class="mr-3">En la pestaña "Quejas" encontrará una lista de las quejas que ya ha realizado. En la parte inferior se mostrará un botón que dice "Nueva queja", le da clic a ese botón y le mostrará un formulario que deberá de llenar con la información de su queja.</div>
-            </div>
-        </div>
-        </div>
-        </div>
-
-        <div class="col-md-12">
-
-        <div class="job-post-item bg-white p-4 d-block d-md-flex align-items-center rounded mt-3">
-
-        <div class="mb-4 mb-md-0 mr-5">
-
-            <div class=" d-flex align-items-center">
-            <h2 class="mr-3 text-black h3">¿En dónde puedo dejar una queja?</h2>
-            </div>
-            <div class=" d-block d-md-flex">
-            <div class="mr-3">En la pestaña "Quejas" encontrará una lista de las quejas que ya ha realizado. En la parte inferior se mostrará un botón que dice "Nueva queja", le da clic a ese botón y le mostrará un formulario que deberá de llenar con la información de su queja.</div>
-            </div>
-        </div>
-        </div>
-        </div>
     </div>
 
 	<footer class="footer">

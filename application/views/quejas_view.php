@@ -60,27 +60,6 @@
     <h1 class="quejas_title">Mis Quejas</h1>
 
     <div class="container" id="quejas">
-    <div class="col-md-12">
-
-        <div class="job-post-item bg-white p-4 d-block d-md-flex align-items-center rounded mt-4">
-
-        <div class="mb-4 mb-md-0 mr-5">
-
-            <div class=" d-flex align-items-center">
-            <h2 class="mr-3 text-black h3">Demoro en jardinería</h2>
-            <div class="badge-wrap">
-            <span class="text-white badge py-2 px-3" style="background-color: #adc867;">Entregado</span>
-            </div>
-            </div>
-            <div class=" d-block d-md-flex">
-            <div class="mr-3">Jardinería</div>
-            </div>
-        </div>
-        <div class="ml-auto d-flex">
-        <button class="btn py-2 mr-1 text-white btn-quejas" data-toggle="modal" data-target="#quejaModal"><i class="fa fa-comments fa-3x" style="padding-right: 5px;"></i></button>
-        </div>
-        </div>
-        </div>
     </div>
 
     <div class="my-3 d-flex justify-content-center">
@@ -97,7 +76,7 @@
         <form role="form">
         <div class="form-group">
             <label for="asunto">Asunto</label>
-            <input type="text" placeholder="Título de su queja" name="asunto" required class="form-control">
+            <input type="text" id="asunto" placeholder="Título de su queja" name="asunto" required class="form-control">
         </div>
 		<div class="form-group">
             <label for="tipo">Área a la que va dirigida la queja</label>
@@ -116,7 +95,7 @@
             
             </div>
         </div>
-        <button type="button" class="subscribe btn btn-confirmar btn-block rounded-pill shadow-sm"> Confirmar  </button>
+        <button type="button" class="subscribe btn btn-confirmar btn-block rounded-pill shadow-sm" onclick="agregarqueja()"> Confirmar  </button>
         </form>
 
     </div>
