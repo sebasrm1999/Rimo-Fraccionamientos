@@ -198,3 +198,78 @@ function cargarquejas(){
         }
     });
 }
+
+function agregarcomentario(id){
+    var comentario = document.getElementById('new-comentario').value;
+    idusuario = sessionStorage.getItem("id");
+    
+            $.ajax({
+                "url" : base_url + "BackEnd/nuevocomentario",
+                "type" : "post",
+                "data" : {
+                    "id_usuario" : idusuario,
+                    "texto" : comentario,
+                    "id_queja" : id
+                },
+                "dataType" : "json",
+                "success" : function(json){
+    
+                    console.log(json);
+        
+                    if(json.resultado){
+        
+                        comentarios(id);
+                        
+                    } else {
+                        alert('Ha ocurrido un error');
+                    }
+                    
+                }
+            });
+    
+}
+
+function comentarios(id){
+
+    document.getElementById('new-comentario').value = '';
+    var comentarios = document.getElementById('comentarios');
+
+    comentarios.innerHTML= '';
+
+    $.ajax({
+        "url" : base_url + "BackEnd/comentariosxqueja",
+        "type" : "post",
+        "data" : {
+            "id" : id
+        },
+        "dataType" : "json",
+        "success" : function(json){
+
+            $('#quejaModal').modal('show');
+
+			$("#btn-confirmar-comentario").attr("onclick",`agregarcomentario(${json['queja'][0].id_queja})`);
+
+            document.getElementById('asunto-queja').innerHTML = json['queja'][0].asunto;
+            document.getElementById('user-queja').innerHTML = json['queja'][0].nombre;
+            document.getElementById('descripcion').innerHTML = json['queja'][0].descripcion;
+            document.getElementById('fecha').innerHTML = json['queja'][0].fecha;
+            document.getElementById('hora').innerHTML = json['queja'][0].hora;
+
+            json['comentarios'].forEach(doc => {
+
+                console.log(doc);
+
+                comentarios.innerHTML += `<h5><strong id="user-comment-${doc.id_comentario}">${doc.nombre}</strong></h5>
+                <div class="m-3">
+                    <p id="desc-comment-${doc.id_comentario}" class="queja-desc shadow">${doc.texto}</p>
+                    <div class="row float-right mr-3">
+                    <h6 id="fecha-${doc.id_comentario}" class="mx-1" style="color:gray;">${doc.fecha}</h6>
+                    <h6 id="hora-${doc.id_comentario}" class="mx-1" style="color:gray;">${doc.hora}</h6>
+                </div>
+                </div>`;
+            });
+            
+        }
+    });
+    
+}

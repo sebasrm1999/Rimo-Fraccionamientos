@@ -108,20 +108,26 @@
 		<!-- Modal content-->
 		<div class="modal-content">
 		<div class="modal-header">
-		<h4 class="modal-title text-white">Demora en Jardinería</h4>
+		<h4 id="asunto-queja" class="modal-title text-white">Demora en Jardinería</h4>
 			<button type="button" class="close" data-dismiss="modal">&times;</button>
 			
 		</div>
 		<div class="modal-body">
 			<h5><strong id="user-queja">Sebas Ramos</strong></h5>
 			<div class="m-3">
-				<p class="queja-desc shadow">El jardinero me había dicho que el viernes pasado (11 de septiembre) podaría mi jardín frontal, sin embargo hasta la fecha aún no se reporta.</p>
-			</div>
+                <p id="descripcion" class="queja-desc shadow">El jardinero me había dicho que el viernes pasado (11 de septiembre) podaría mi jardín frontal, sin embargo hasta la fecha aún no se reporta.</p>
+                <div class="row float-right mr-3">
+                    <h6 id="fecha" class="mx-1" style="color:gray;">fecha</h6>
+                    <h6 id="hora" class="mx-1" style="color:gray;">hora</h6>
+                </div>
+            </div>
+            <h5 style="color: gray;">Comentarios: </h5>
 			<div id="comentarios" class="container comentarios ml-5 my-3">
 
 			</div>
-			<div class="ml-5 my-3">
-				<textarea placeholder="Escriba un comentario..." class="form-control" name="new-comentario" id="new-comentario" rows="5"></textarea>
+			<div class="ml-5 mt-5">
+                <textarea placeholder="Escriba un comentario..." class="form-control" name="new-comentario" id="new-comentario" rows="3"></textarea>
+                <button id="btn-confirmar-comentario" type="button" class="subscribe btn btn-confirmar btn-block rounded-pill shadow-sm mt-2 mr-5"> Enviar  </button>
 			</div>
 			
 		<div class="modal-footer">
