@@ -14,13 +14,19 @@
 
 ******************************/
 // Basic example
-let base_url = 'http://localhost/myhome_ci/';
+let base_url = 'http://dtai.uteq.edu.mx/~ramseb188/myhome_ci/';
 
 $(document).ready(function()
 {
-	cargartabla();
-
-	avisosgenerales();
+	var userID = sessionStorage.getItem('id');
+		if(userID != null){
+		  cargartabla();
+		  avisosgenerales();
+		  showPage();
+		} else {
+		  sessionStorage.clear();
+		  window.location.replace(`${base_url}index.php`);
+		}
 
 	/* 
 
@@ -333,7 +339,9 @@ function avisosgenerales(){
 				contador++;
 				}
                 
-            });
+			});
+			
+			showPage();
             
         }
     });
@@ -359,3 +367,8 @@ function aviso(id){
     });
     
 }
+
+function showPage() {
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("myDiv").style.display = "block";
+  }

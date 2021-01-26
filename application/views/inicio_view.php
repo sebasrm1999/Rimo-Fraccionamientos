@@ -18,6 +18,10 @@
 </head>
 <body>
 
+<div id="loader" class="loader"></div>
+
+<div style="display:none;" id="myDiv" class="animate-bottom">
+
 <div class="super_container">
 	<div class="super_overlay"></div>
 	
@@ -70,25 +74,7 @@
 
 			<!-- The slideshow -->
 			<div id="avisosGenerales" class="carousel-inner">
-			<div class="carousel-item active">
-				<img src="" class="mx-auto d-block mt-3 rounded-circle" style="height: 200px; width: 200px;" alt="Los Angeles">
-				<div class="mt-3">
-				<div class="col d-flex justify-content-center mb-3">
-					<span class="border bg-info text-white rounded p-1">Experiencia:</span>  
-				</div>
-				<div class="col d-flex justify-content-center mb-3">
-					<span class="border bg-info text-white rounded p-1">Edad:</span>  
-				</div>
-				</div>
-				<div class="row justify-content-center mt-3">
-				<button class="btn btn-light mx-auto text-info"><i class="fas fa-file-alt" style="padding-right: 5px;"></i>Ver Currículum</button>
-				<button class="btn btn-light mx-auto text-info"><i class="fas fa-comments" style="padding-right: 5px;"></i>Enviar Mensaje</button>
-				</div>
-				<div class="row justify-content-center mt-3">
-				<button class="btn btn-danger mx-auto text-white"><i class="fas fa-trash" style="padding-right: 5px;"></i>Eliminar Solicitud</button>  
-				</div>
-				
-			</div>
+			
 			</div>
 
 			<!-- Left and right controls -->
@@ -231,6 +217,8 @@
 			</div>
 		</div>
 	</footer>
+</div>
+
 </div>
 
 <script src="<?= base_url() ?>static/js/jquery-3.3.1.min.js"></script>

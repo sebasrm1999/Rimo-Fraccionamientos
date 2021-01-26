@@ -18,7 +18,11 @@
 </head>
 <body>
 
-<div class="super_container">
+<div id="loader" class="loader"></div>
+
+<div style="display:none;" id="myDiv" class="animate-bottom">
+
+	<div class="super_container">
 	<div class="super_overlay"></div>
 	
 	<!-- Header -->
@@ -33,9 +37,11 @@
 					<li class="active"><a href="#">Avisos</a></li>
 					<li><a href="<?= base_url() ?>index.php/pagoscrud">Pagos</a></li>
 					<li><a href="<?= base_url() ?>index.php/quejascrud">Quejas</a></li>
-					<li><a href="<?= base_url() ?>index.php/preguntascrud">Preguntas frecuentes</a></li>
+					<li><a href="<?= base_url() ?>index.php/preguntascrud">Preguntas</a></li>
 					<li><a href="<?= base_url() ?>index.php/areascrud">Áreas</a></li>
 					<li><a href="<?= base_url() ?>index.php/usuarioscrud">Usuarios</a></li>
+					<li><a href="<?= base_url() ?>index.php/subcoloniascrud">Subcolonias</a></li>
+					<li><a href="<?= base_url() ?>index.php/parametroscrud"><i class="fa fa-cog fa-3x"></i></a></li>
 				</ul>
 			</nav>
 			<button id="btn-cerrar" onclick="cerrar()" class="ml-auto btn rounded-0">Cerrar Sesión</button>
@@ -57,6 +63,8 @@
 					<li><a href="<?= base_url() ?>index.php/preguntascrud">Preguntas Frecuentes</a></li>
 					<li><a href="<?= base_url() ?>index.php/areascrud">Áreas</a></li>
 					<li><a href="<?= base_url() ?>index.php/usuarioscrud">Usuarios</a></li>
+					<li><a href="<?= base_url() ?>index.php/subcoloniascrud">Subcolonias</a></li>
+					<li><a href="<?= base_url() ?>index.php/parametroscrud"><i class="fa fa-cog fa-3x"></i></a></li>
 				</ul>
 			</nav>
 		</div>
@@ -131,6 +139,8 @@
         <div id="id_usuario_div" class="form-group" style="display: none;">
             <label for="id_usuario">ID de usuario</label>
             <input id="id_usuario" type="text" name="id_usuario" class="form-control">
+			<label for="nombre_usuario">Nombre de usuario</label>
+            <input id="nombre_usuario" type="text" name="nombre_usuario" class="form-control" disabled>
         </div>
         <div class="form-group">
             <label for="asunto">Asunto</label>
@@ -174,6 +184,27 @@
 
 	</div>
 	</div>
+
+	<div id="alertaModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+      <h4 id="info-modal-titulo" class="modal-title text-white">Error</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        
+      </div>
+      <div class="modal-body">
+        <p id="info-modal-cuerpo" style="color: 000#;"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 	<footer class="footer">
 		<div class="footer_content">
@@ -233,6 +264,8 @@
 								<li><a href="<?= base_url() ?>index.php/preguntascrud">Preguntas Frecuentes</a></li>
 								<li><a href="<?= base_url() ?>index.php/areascrud">Áreas</a></li>
 								<li><a href="<?= base_url() ?>index.php/usuarioscrud">Usuarios</a></li>
+								<li><a href="<?= base_url() ?>index.php/subcoloniascrud">Subcolonias</a></li>
+								<li><a href="<?= base_url() ?>index.php/parametroscrud"><i class="fa fa-cog fa-3x"></i></a></li>
 							</ul>
 						</div>
 					</div>
@@ -241,6 +274,8 @@
 			</div>
 		</div>
 	</footer>
+</div>
+
 </div>
 
 <script src="<?= base_url() ?>static/js/jquery-3.3.1.min.js"></script>

@@ -74,5 +74,41 @@ class FrontEnd extends CI_Controller{
       $this->load->view('usuariosCrud_view');
   
     }
+
+    public function subcoloniascrud(){
+		
+      $this->load->view('subcoloniasCrud_view');
+  
+    }
+
+    public function parametroscrud(){
+		
+      $this->load->view('parametrosCrud_view');
+  
+    }
+
+    public function empleados(){
+		
+      $this->load->view('empleados_view');
+  
+    }
+
+    public function olvidar(){
+		
+      $this->load->view('olvidar_view');
+  
+    }
+
+    public function recuperar(){
+		
+      $this->load->view('recuperar_view');
+  
+    }
+
+    public function invalido(){
+		
+      $this->load->view('invalido_view');
+  
+    }
 }
 ?>

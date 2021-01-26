@@ -1,9 +1,15 @@
-let base_url = 'http://localhost/myhome_ci/';
+let base_url = 'http://dtai.uteq.edu.mx/~ramseb188/myhome_ci/';
 
 $(document).ready(function()
 {
 
-	preguntas();
+	var userID = sessionStorage.getItem('id');
+		if(userID != null){
+		  preguntas();
+		} else {
+		  sessionStorage.clear();
+		  window.location.replace(`${base_url}index.php`);
+		}
 
       var header = $('.header');
 
@@ -113,8 +119,15 @@ function preguntas(){
 					</div>
 				</div>
 				</div>`;
-            });
+			});
+			
+			showPage();
             
         }
     });
 }
+
+function showPage() {
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("myDiv").style.display = "block";
+  }

@@ -14,55 +14,19 @@
 
 ******************************/
 // Basic example
-let base_url = 'http://localhost/myhome_ci/';
+let base_url = 'http://dtai.uteq.edu.mx/~ramseb188/myhome_ci/';
 
 $(document).ready(function()
 {
 
-    var pagos = document.getElementById('pagos');
-
-    pagos.innerHTML= '';
-    
-    $.ajax({
-        "url" : base_url + "BackEnd/pagos",
-        "type" : "get",
-        "dataType" : "json",
-        "success" : function(json){
-
-            json.pagos.forEach(doc => {
-
-                var pagado = 'No';
-                var fecha = '-';
-                var hora = '-';
-
-                if(doc.status == 1){
-                    pagado = 'SI';
-                }
-                if(doc.fecha != null){
-                    fecha = doc.fecha;
-                    hora = doc.hora;
-                }
-
-                pagos.innerHTML += `<tr>
-                <td><button class="btn btn-outline-light text-dark" onclick="pago(${doc.id_pago})">${doc.mes} ${doc.anio}</button></td>
-                <td>${doc.nombre}</td>
-                <td>${pagado}</td>
-                <td>${fecha}</td>
-				<td>${hora}</td>
-                <td>
-                <button class="btn btn-outline-danger" onclick="borrarpago(${doc.id_pago})" ><i class="fa fa-trash fa-3x"></i></button>
-                <button id="btn-actualizar-${doc.id_pago}" class="btn btn-outline-warning" onclick="actualizarform(${doc.id_pago})"><i class="fa fa-pencil fa-3x"></i></button>
-                </td>
-				</tr>`;
-            });
-
-            $('#dtBasicExample').DataTable({
-                "destroy": true,
-                "pagingType": "simple_numbers"
-              });
-            
+    var userID = sessionStorage.getItem('id');
+        if(userID != null){
+          cargartabla();
+          showPage();
+        } else {
+          sessionStorage.clear();
+          window.location.replace(`${base_url}index.php`);
         }
-    });
 
 	/* 
 
@@ -157,6 +121,11 @@ $(document).ready(function()
         $("#btn-confirmar").attr("onclick","agregarpago()");
     });
 
+    $('#id_usuario').on('input', function(e) {
+        var idUsuario = document.getElementById('id_usuario').value;
+        usuario(idUsuario);
+      });
+
 });
 
 function cargartabla(){
@@ -192,10 +161,13 @@ function cargartabla(){
                 <td>${doc.nombre}</td>
                 <td>${pagado}</td>
                 <td>${fecha}</td>
-				<td>${hora}</td>
+                <td>${hora}</td>
+                <td>${doc.verificado == 0 ? 'NO' : 'SI'}</td>
                 <td>
                 <button class="btn btn-outline-danger" onclick="borrarpago(${doc.id_pago})" ><i class="fa fa-trash fa-3x"></i></button>
                 <button id="btn-actualizar-${doc.id_pago}" class="btn btn-outline-warning" onclick="actualizarform(${doc.id_pago})"><i class="fa fa-pencil fa-3x"></i></button>
+                ${doc.comprobante == null ? '' : `<button id="btn-comprobante-${doc.id_pago}" onclick="descargarComprobante(${doc.id_pago})" class="btn btn-outline-info"><i class="fa fa-file fa-3x"></i></button>`}
+                <button id="btn-verificar-${doc.id_pago}" class="btn btn-outline-success" onclick="verificar(${doc.id_pago})"><i class="fa fa-check fa-3x"></i></button>
                 </td>
 				</tr>`;
             });
@@ -204,6 +176,8 @@ function cargartabla(){
                 "destroy": true,
                 "pagingType": "simple_numbers"
               });
+
+              showPage();
             
         }
     });
@@ -257,41 +231,44 @@ function agregarpago(){
     var idusuario = document.getElementById('id_usuario').value;
     var mes = document.getElementById('mes').value;
     var anio = document.getElementById('anio').value;
-    
-    if(!isNaN(idusuario)){
-        if(!isNaN(anio)){
-            $.ajax({
-                "url" : base_url + "BackEnd/nuevopago",
-                "type" : "post",
-                "data" : {
-                    "id_usuario" : idusuario,
-                    "mes" : mes,
-                    "anio" : anio
-                },
-                "dataType" : "json",
-                "success" : function(json){
-    
-                    console.log(json);
+
+    if(idusuario.length > 0 && mes.length > 0 && anio.length > 0){
+        if(!isNaN(idusuario)){
+            if(!isNaN(anio)){
+                $.ajax({
+                    "url" : base_url + "BackEnd/nuevopago",
+                    "type" : "post",
+                    "data" : {
+                        "id_usuario" : idusuario,
+                        "mes" : mes,
+                        "anio" : anio
+                    },
+                    "dataType" : "json",
+                    "success" : function(json){
         
-                    if(json.resultado){
-        
-                        cargartabla();
-                        $('#form-pago').css('display', 'none');
+                        console.log(json);
+            
+                        if(json.resultado){
+            
+                            cargartabla();
+                            $('#form-pago').css('display', 'none');
+                            
+                        } else {
+                            alertas(json.mensaje);
+                        }
                         
-                    } else {
-                        alert(json.mensaje);
                     }
-                    
-                }
-            });
+                });
+            } else {
+                alertas('El año ingresado no es un número.');
+            }
+            
         } else {
-            alert('El año ingresado no es un número.');
+            alertas('El ID del usuario debe ser numérico');
         }
-        
     } else {
-        alert('El ID del usuario debe ser numérico');
+        alertas('Favor de llenar todos los campos...');
     }
-    
 }
 
 function actualizarform(id){
@@ -350,6 +327,7 @@ function actualizarpago(id){
         valorPronto = null;
     }
 
+    if(idusuario.length > 0 && mes.length > 0 && anio.length > 0){
         if(!isNaN(idusu)){
             if(!isNaN(anio)){
                 $.ajax({
@@ -376,18 +354,21 @@ function actualizarpago(id){
                             $('#act-form').css('display', 'none');
                             
                         } else {
-                            alert(json.mensaje);
+                            alertas(json.mensaje);
                         }
                         
                     }
                 });
             } else {
-                alert('El año ingresado no es un número.');
+                alertas('El año ingresado no es un número.');
             }
             
         } else {
-            alert('El ID del usuario debe ser numérico');
+            alertas('El ID del usuario debe ser numérico');
         }
+    } else {
+        alertas('Favor de llenar todos los campos...');
+    }
 }
 
 function borrarpago(id){
@@ -405,9 +386,71 @@ function borrarpago(id){
                 cargartabla();
                 
             } else {
-                alert('Ha ocurrido un error');
+                alertas('Ha ocurrido un error');
             }
             
         }
     });
 }
+
+function descargarComprobante(id){
+    $.ajax({
+        "url" : base_url + "BackEnd/pago",
+        "type" : "post",
+        "data" : {
+            "id" : id
+        },
+        "dataType" : "json",
+        "success" : function(json){
+            var win = window.open(base_url+'static/images/tickets/'+json[0].comprobante, '_blank');
+            win.focus();
+        }
+    });
+}
+
+function verificar(id){
+    $.ajax({
+        "url" : base_url + "BackEnd/verificarpago",
+        "type" : "post",
+        "data" : {
+            "id" : id
+        },
+        "dataType" : "json",
+        "success" : function(json){
+            if(json.resultado){
+                cargartabla();
+            } else {
+                alertas('Error inesperado...');
+            }
+        }
+    });
+}
+
+function usuario(id){
+
+    $.ajax({
+        "url" : base_url + "BackEnd/usuario",
+        "type" : "post",
+        "data" : {
+            "id" : id
+        },
+        "dataType" : "json",
+        "success" : function(json){
+
+            document.getElementById('nombre_usuario').value = json[0].nombre;
+            
+        }
+    });
+    
+}
+
+function alertas(alerta){
+    $('#alertaModal').modal('show');
+
+    $('#info-modal-cuerpo').html(alerta);
+}
+
+function showPage() {
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("myDiv").style.display = "block";
+  }

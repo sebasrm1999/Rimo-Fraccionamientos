@@ -60,6 +60,11 @@
                       <a class="ml-2 mt-1" href="<?= base_url() ?>index.php/registro" style="color: #637a26;">Regístrate aquí</a>
                     </div>
 
+                    <div class="row mb-2">
+                      <p style="color: #000000;">¿Olvidó su contraseña?</p>
+                      <a class="ml-2 mt-1" href="<?= base_url() ?>index.php/olvidar" style="color: #637a26;">De clic aquí</a>
+                    </div>
+
                     <div class="row justify-content-center">
                     <div class="justify-content-center">
                     <button id="btn-login" class="btn btn-lg" onclick="login()">Iniciar Sesión</button>
@@ -75,19 +80,18 @@
       </div>
     </div>
 
-<!-- Modal -->
-<div id="alertaModal" class="modal fade" role="dialog">
+    <div id="alertaModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header bg-info">
-      <h4 id="info-modal-titulo" class="modal-title text-white">Cuenta cancelada</h4>
+      <div class="modal-header">
+      <h4 id="info-modal-titulo" class="modal-title text-white">Error</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         
       </div>
       <div class="modal-body">
-        <p id="info-modal-cuerpo">¿Desea restaurar su cuenta? (Deberá iniciar sesión con su anterior contraseña).</p>
+        <p id="info-modal-cuerpo" style="color: 000#;"></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>

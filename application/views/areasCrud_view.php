@@ -18,6 +18,9 @@
 </head>
 <body>
 
+<div id="loader" class="loader"></div>
+
+<div style="display:none;" id="myDiv" class="animate-bottom">
 <div class="super_container">
 	<div class="super_overlay"></div>
 	
@@ -33,9 +36,11 @@
 					<li><a href="<?= base_url() ?>index.php/avisoscrud">Avisos</a></li>
 					<li><a href="<?= base_url() ?>index.php/pagoscrud">Pagos</a></li>
 					<li><a href="<?= base_url() ?>index.php/quejascrud">Quejas</a></li>
-					<li><a href="<?= base_url() ?>index.php/preguntascrud">Preguntas frecuentes</a></li>
+					<li><a href="<?= base_url() ?>index.php/preguntascrud">Preguntas</a></li>
 					<li class="active"><a href="#">Áreas</a></li>
 					<li><a href="<?= base_url() ?>index.php/usuarioscrud">Usuarios</a></li>
+					<li><a href="<?= base_url() ?>index.php/subcoloniascrud">Subcolonias</a></li>
+					<li><a href="<?= base_url() ?>index.php/parametroscrud"><i class="fa fa-cog fa-3x"></i></a></li>
 				</ul>
 			</nav>
 			<button id="btn-cerrar" onclick="cerrar()" class="ml-auto btn rounded-0">Cerrar Sesión</button>
@@ -57,6 +62,8 @@
 					<li><a href="<?= base_url() ?>index.php/preguntascrud">Preguntas Frecuentes</a></li>
 					<li><a href="#">Áreas</a></li>
 					<li><a href="<?= base_url() ?>index.php/usuarioscrud">Usuarios</a></li>
+					<li><a href="<?= base_url() ?>index.php/subcoloniascrud">Subcolonias</a></li>
+					<li><a href="<?= base_url() ?>index.php/parametroscrud"><i class="fa fa-cog fa-3x"></i></a></li>
 				</ul>
 			</nav>
 		</div>
@@ -76,13 +83,10 @@
 			<table id="dtBasicExample" class="table table-striped table-bordered table-responsive-md" cellspacing="0" width="100%">
 			<thead>
 				<tr>
-				<th class="th" style="width:40%;">Nombre
+				<th class="th" style="width:60%;">Nombre
 
 				</th>
-                <th class="th" style="width:40%;">Encargado
-
-				</th>
-                <th class="th" style="width:20%;">
+                <th class="th" style="width:40%;">
 
 				</th>
 				</tr>
@@ -93,8 +97,6 @@
 			<tfoot>
 				<tr>
 				<th>Nombre
-				</th>
-                <th>Encargado
 				</th>
                 <th>
 				</th>
@@ -119,11 +121,7 @@
             <label for="nombre">Nombre</label>
             <input id="nombre" type="text" placeholder="Nombre del área" name="nombre" required class="form-control">
         </div>
-        <div class="form-group">
-            <label for="encargado">Encargado</label>
-            <input id="encargado" type="text" placeholder="Encargado del área" name="encargado" required class="form-control">
-        </div>
-        <button id="btn-confirmar" type="button" class="subscribe btn btn-confirmar btn-block rounded-pill shadow-sm" onclick="agregaraviso()"> Confirmar  </button>
+        <button id="btn-confirmar" type="button" class="subscribe btn btn-confirmar btn-block rounded-pill shadow-sm" onclick="agregararea()"> Confirmar  </button>
         </form>
 
     </div>
@@ -151,6 +149,27 @@
 
 	</div>
 	</div>
+
+	<div id="alertaModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+      <h4 id="info-modal-titulo" class="modal-title text-white">Error</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        
+      </div>
+      <div class="modal-body">
+        <p id="info-modal-cuerpo" style="color: 000#;"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 	<footer class="footer">
 		<div class="footer_content">
@@ -210,6 +229,8 @@
 								<li><a href="<?= base_url() ?>index.php/preguntascrud">Preguntas Frecuentes</a></li>
 								<li><a href="#">Áreas</a></li>
 								<li><a href="<?= base_url() ?>index.php/usuarioscrud">Usuarios</a></li>
+								<li><a href="<?= base_url() ?>index.php/subcoloniascrud">Subcolonias</a></li>
+								<li><a href="<?= base_url() ?>index.php/parametroscrud"><i class="fa fa-cog fa-3x"></i></a></li>
 							</ul>
 						</div>
 					</div>
@@ -218,6 +239,7 @@
 			</div>
 		</div>
 	</footer>
+</div>
 </div>
 
 <script src="<?= base_url() ?>static/js/jquery-3.3.1.min.js"></script>

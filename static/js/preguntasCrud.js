@@ -14,38 +14,19 @@
 
 ******************************/
 // Basic example
-let base_url = 'http://localhost/myhome_ci/';
+let base_url = 'http://dtai.uteq.edu.mx/~ramseb188/myhome_ci/';
 
 $(document).ready(function()
 {
 
-    var preguntas = document.getElementById('preguntas');
-
-    preguntas.innerHTML= '';
-    
-    $.ajax({
-        "url" : base_url + "BackEnd/preguntas",
-        "type" : "get",
-        "dataType" : "json",
-        "success" : function(json){
-
-            json.preguntas.forEach(doc => {
-                preguntas.innerHTML += `<tr>
-				<td><button class="btn btn-outline-light text-dark" onclick="pregunta(${doc.id_pregunta})">${doc.asunto}</button></td>
-                <td>
-                <button class="btn btn-outline-danger" onclick="borrarpregunta(${doc.id_pregunta})" ><i class="fa fa-trash fa-3x"></i></button>
-                <button id="btn-actualizar-${doc.id_pregunta}" class="btn btn-outline-warning" onclick="actualizarform(${doc.id_pregunta})"><i class="fa fa-pencil fa-3x"></i></button>
-                </td>
-				</tr>`;
-            });
-
-            $('#dtBasicExample').DataTable({
-                "destroy": true,
-                "pagingType": "simple_numbers"
-              });
-            
+    var userID = sessionStorage.getItem('id');
+        if(userID != null){
+          cargartabla();
+          showPage();
+        } else {
+          sessionStorage.clear();
+          window.location.replace(`${base_url}index.php`);
         }
-    });
 
 	/* 
 
@@ -170,6 +151,8 @@ function cargartabla(){
                 "destroy": true,
                 "pagingType": "simple_numbers"
               });
+
+              showPage();
             
         }
     });
@@ -205,28 +188,32 @@ function pregunta(id){
 function agregarpregunta(){
     var asunto = document.getElementById('asunto').value;
     var descripcion = document.getElementById('pregunta_cuerpo').value;
-    $.ajax({
-        "url" : base_url + "BackEnd/nuevapregunta",
-        "type" : "post",
-        "data" : {
-            "asunto" : asunto,
-            "descripcion" : descripcion
-        },
-        "dataType" : "json",
-        "success" : function(json){
 
-            if(json.resultado){
-
-                cargartabla();
-                $('#form-pregunta').css('display', 'none');
-                
-            } else {
-                alert('Error inesperado');
-            }
-            
-        }
-    });
+    if(asunto.length > 0 && descripcion.length > 0){
+        $.ajax({
+            "url" : base_url + "BackEnd/nuevapregunta",
+            "type" : "post",
+            "data" : {
+                "asunto" : asunto,
+                "descripcion" : descripcion
+            },
+            "dataType" : "json",
+            "success" : function(json){
     
+                if(json.resultado){
+    
+                    cargartabla();
+                    $('#form-pregunta').css('display', 'none');
+                    
+                } else {
+                    alertas('Error inesperado');
+                }
+                
+            }
+        });
+    } else {
+        alertas('Favor de llenar todos los campos...');
+    }
 }
 
 function actualizarform(id){
@@ -258,28 +245,33 @@ function actualizarform(id){
 function actualizarpregunta(id){
     var asunto = document.getElementById('asunto').value;
     var descripcion = document.getElementById('pregunta_cuerpo').value;
-    $.ajax({
-        "url" : base_url + "BackEnd/actualizapregunta",
-        "type" : "post",
-        "data" : {
-            "id" : id,
-            "asunto" : asunto,
-            "descripcion" : descripcion
-        },
-        "dataType" : "json",
-        "success" : function(json){
 
-            if(json.resultado){
-
-                cargartabla();
-                $('#form-pregunta').css('display', 'none');
+    if(asunto.length > 0 && descripcion.length > 0){
+        $.ajax({
+            "url" : base_url + "BackEnd/actualizapregunta",
+            "type" : "post",
+            "data" : {
+                "id" : id,
+                "asunto" : asunto,
+                "descripcion" : descripcion
+            },
+            "dataType" : "json",
+            "success" : function(json){
+    
+                if(json.resultado){
+    
+                    cargartabla();
+                    $('#form-pregunta').css('display', 'none');
+                    
+                } else {
+                    alertas('Error inesperado');
+                }
                 
-            } else {
-                alert('Error inesperado');
             }
-            
-        }
-    });
+        });
+    } else {
+        alertas('Favor de llenar todos los campos...');
+    }
 }
 
 function borrarpregunta(id){
@@ -297,9 +289,20 @@ function borrarpregunta(id){
                 cargartabla();
                 
             } else {
-                alert('Ha ocurrido un error');
+                alertas('Ha ocurrido un error');
             }
             
         }
     });
 }
+
+function alertas(alerta){
+    $('#alertaModal').modal('show');
+
+    $('#info-modal-cuerpo').html(alerta);
+}
+
+function showPage() {
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("myDiv").style.display = "block";
+  }

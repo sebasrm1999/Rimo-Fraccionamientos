@@ -1,11 +1,17 @@
-let base_url = 'http://localhost/myhome_ci/';
+let base_url = 'http://dtai.uteq.edu.mx/~ramseb188/myhome_ci/';
 
 $(document).ready(function()
 {
 
-	area();
-
-	cargarquejas();
+	var userID = sessionStorage.getItem('id');
+		if(userID != null){
+		  cargarquejas();
+		  area();
+		  showPage();
+		} else {
+		  sessionStorage.clear();
+		  window.location.replace(`${base_url}index.php`);
+		}
 
       var header = $('.header');
 
@@ -174,6 +180,8 @@ function cargarquejas(){
 					status = 'Leído'
 				} else if(doc.status == 3){
 					status = 'Contestado'
+				} else if(doc.status == 4){
+					status = 'Cerrado'
 				}
                 quejas.innerHTML += `<div class="job-post-item bg-white p-4 d-block d-md-flex align-items-center rounded mt-4">
 
@@ -182,18 +190,22 @@ function cargarquejas(){
 					<div class=" d-flex align-items-center">
 					<h2 class="mr-3 text-black h3">${doc.asunto}</h2>
 					<div class="badge-wrap">
-					<span class="text-white badge py-2 px-3" style="background-color: #adc867;">${status}</span>
+					<span class="text-white badge py-2 px-3" style="background-color: ${doc.status == 4 ? 'red' : '#adc867;'}">${status}</span>
 					</div>
 					</div>
 					<div class=" d-block d-md-flex">
 					<div class="mr-3">${doc.nombre}</div>
+					<div class="mr-3">Publicada : ${doc.fecha}</div>
+                    <div class="mr-3">Estimado : ${doc.fecha_estimada == null ? '---' : doc.fecha_estimada}</div>
 					</div>
 				</div>
 				<div class="ml-auto d-flex">
 				<button class="btn py-2 mr-1 text-white btn-quejas" onclick="comentarios(${doc.id_queja})"><i class="fa fa-comments fa-3x" style="padding-right: 5px;"></i></button>
 				</div>
 				</div>`;
-            });
+			});
+			
+			showPage();
             
         }
     });
@@ -273,3 +285,8 @@ function comentarios(id){
     });
     
 }
+
+function showPage() {
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("myDiv").style.display = "block";
+  }

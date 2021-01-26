@@ -47,6 +47,48 @@ class BackEnd_model extends CI_Model{
         return $obj;
     }
 
+    //SUBCOLONIAS
+    
+    public function inserta_subcolonia($data){
+        $this->db->insert('subcolonia', $data);
+        $obj["resultado"] = $this->db->affected_rows() > 0;
+        return $obj;
+    }
+
+    public function update_subcolonia($data){
+        $this->db->where('id_subcolonia', $data['id_subcolonia']);
+        $this->db->update('subcolonia', $data);
+        $obj["resultado"] = $this->db->affected_rows() > 0;
+        return $obj;
+    }
+
+    public function get_subcolonias(){
+        $rs = $this->db->get("subcolonia");
+        $obj['subcolonias'] = $rs->num_rows() == 0 ? NULL : $rs->result(); 
+
+		return $obj;
+    }
+
+    public function get_subcolonia($id){
+        $this->db->where('id_subcolonia', $id);
+        $rs = $this->db->get("subcolonia");
+        $obj = $rs->num_rows() == 0 ? NULL : $rs->result(); 
+
+		return $obj;
+    }
+
+    public function delete_subcolonia($id){
+        $this->db->where('id_subcolonia', $id);
+        $this->db->delete('subcolonia');
+
+        $this->db->where('id_subcolonia', $id);
+        $rs = $this->db->get('subcolonia');
+
+        $obj["resultado"] = $rs->num_rows() == 0 ? TRUE : FALSE;
+
+        return $obj;
+    }
+
     //PREGUNTAS
 
     public function inserta_pregunta($data){
@@ -106,6 +148,8 @@ class BackEnd_model extends CI_Model{
 
     public function get_usuarios(){
         $this->db->where('tipo', 1);
+        $this->db->or_where('tipo', 3);
+        $this->db->order_by('fecha_registro', 'desc');
         $rs = $this->db->get("usuario");
         $obj['usuarios'] = $rs->num_rows() == 0 ? NULL : $rs->result(); 
 
@@ -116,6 +160,16 @@ class BackEnd_model extends CI_Model{
         $this->db->where('id_usuario', $id);
         $rs = $this->db->get("usuario");
         $obj = $rs->num_rows() == 0 ? NULL : $rs->result(); 
+
+		return $obj;
+    }
+
+    public function get_usuariocorreo($correo){
+        $this->db->where('correo', $correo);
+        $rs = $this->db->get("usuario");
+        $obj['resultado'] = $rs->num_rows() == 0 ? false : true;
+        $obj['usuario'] = $obj['resultado'] == true ? $rs->result() : NULL; 
+        $obj['mensaje'] = $obj['resultado'] == true ? 'Correo ya existente' : 'Correo no ha sido usado'; 
 
 		return $obj;
     }
@@ -148,6 +202,7 @@ class BackEnd_model extends CI_Model{
     }
 
     public function get_avisos(){
+        $this->db->order_by('fecha', 'desc');
         $rs = $this->db->get("aviso");
         $obj['avisos'] = $rs->num_rows() == 0 ? NULL : $rs->result(); 
 
@@ -165,6 +220,7 @@ class BackEnd_model extends CI_Model{
 
     public function get_avisopersonal($id){
         $this->db->where('id_usuario', $id);
+        $this->db->order_by('fecha', 'desc');
         $rs = $this->db->get("aviso");
         $obj['avisos'] = $rs->num_rows() == 0 ? NULL : $rs->result(); 
 
@@ -188,6 +244,7 @@ class BackEnd_model extends CI_Model{
 
     public function inserta_pago($data){
         $this->db->insert('pago', $data);
+        $obj['id'] = $this->db->insert_id();
         $obj["resultado"] = $this->db->affected_rows() > 0;
         return $obj;
     }
@@ -216,16 +273,18 @@ class BackEnd_model extends CI_Model{
     }
 
     public function get_pagosusuario($id){
-        $query = "SELECT pago.*,usuario.nombre from pago, usuario WHERE pago.id_usuario=usuario.id_usuario And pago.id_usuario=".$id." AND status=1";
+        $query = "SELECT pago.*,usuario.nombre from pago, usuario WHERE pago.id_usuario=usuario.id_usuario And pago.id_usuario=".$id." ";
         $rs = $this->db->query($query);
         $obj['pagos'] = $rs->num_rows() == 0 ? NULL : $rs->result(); 
 
 		return $obj;
     }
 
-    public function get_pagoactual($id){
-        $query = "SELECT * from pago WHERE id_usuario=".$id." AND id_pago = (SELECT MAX(id_pago) FROM pago WHERE id_usuario=".$id.")";
-        $rs = $this->db->query($query);
+    public function get_pagoactual($id, $mes, $anio){
+        $this->db->where('id_usuario', $id);
+        $this->db->where('anio', $anio);
+        $this->db->where('mes', $mes);
+        $rs = $this->db->get("pago");
         $obj = $rs->num_rows() == 0 ? NULL : $rs->result(); 
 
 		return $obj;
@@ -259,7 +318,7 @@ class BackEnd_model extends CI_Model{
     }
 
     public function get_quejas(){
-        $query = "SELECT queja.*,usuario.nombre from queja, usuario WHERE queja.id_usuario=usuario.id_usuario";
+        $query = "SELECT queja.*,usuario.nombre from queja, usuario WHERE queja.id_usuario=usuario.id_usuario ORDER BY queja.fecha desc";
         $rs = $this->db->query($query);
         $obj['quejas'] = $rs->num_rows() == 0 ? NULL : $rs->result(); 
 
@@ -283,7 +342,15 @@ class BackEnd_model extends CI_Model{
     }
 
     public function get_quejausuario($id){
-        $query = "SELECT queja.*, area.nombre from queja, area WHERE id_usuario=".$id." AND queja.id_area=area.id_area";
+        $query = "SELECT queja.*, area.nombre from queja, area WHERE id_usuario=".$id." AND queja.id_area=area.id_area ORDER BY queja.fecha desc";
+        $rs = $this->db->query($query);
+        $obj['quejas'] = $rs->num_rows() == 0 ? NULL : $rs->result(); 
+
+		return $obj;
+    }
+
+    public function get_quejaarea($id){
+        $query = "SELECT queja.*, usuario.nombre from queja, usuario WHERE queja.id_usuario=usuario.id_usuario AND queja.id_area=".$id." ORDER BY queja.fecha desc";
         $rs = $this->db->query($query);
         $obj['quejas'] = $rs->num_rows() == 0 ? NULL : $rs->result(); 
 
@@ -355,6 +422,30 @@ class BackEnd_model extends CI_Model{
 
 		return $obj;
     }
+
+    //PARAMETROS
+
+    public function get_datos(){
+        $rs = $this->db->get("datos");
+        $obj['datos'] = $rs->num_rows() == 0 ? NULL : $rs->result(); 
+        $obj['resultado'] = $obj['datos'] == NULL ? false : true;
+
+		return $obj;
+    }
+
+    public function inserta_datos($data){
+        $this->db->insert('datos', $data);
+        $obj["resultado"] = $this->db->affected_rows() > 0;
+        return $obj;
+    }
+
+    public function update_datos($data){
+        $this->db->where('id_datos', $data['id_datos']);
+        $this->db->update('datos', $data);
+        $obj["resultado"] = $this->db->affected_rows() > 0;
+        return $obj;
+    }
+
 
 }
 ?>

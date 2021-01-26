@@ -1,4 +1,4 @@
-let base_url = 'http://localhost/myhome_ci/';
+let base_url = 'http://dtai.uteq.edu.mx/~ramseb188/myhome_ci/';
 
 function login(){
     let error = document.getElementById('password-error');
@@ -17,17 +17,32 @@ function login(){
         "success" : function(json){
 
             if(json.resultado){
-
                 if(json.usuario[0].tipo == 1){
-                    sessionStorage.setItem("id", json.usuario[0].id_usuario);
-                    sessionStorage.setItem("correo", email);
+                    if(json.usuario[0].verificado == 1){
+                        sessionStorage.setItem("id", json.usuario[0].id_usuario);
+                        sessionStorage.setItem("correo", email);
 
-                    window.location.replace(`${base_url}index.php/inicio`);
+                        window.location.replace(`${base_url}index.php/inicio`);
+                    } else {
+                        alertas('Su cuenta aún no ha sido verificada.');
+                    }
+                    
                 } else if(json.usuario[0].tipo == 2){
                     sessionStorage.setItem("id", json.usuario[0].id_usuario);
                     sessionStorage.setItem("correo", email);
 
                     window.location.replace(`${base_url}index.php/avisoscrud`);
+                } else if(json.usuario[0].tipo == 3){
+                    if(json.usuario[0].verificado == 1){
+                        sessionStorage.setItem("id", json.usuario[0].id_usuario);
+                        sessionStorage.setItem("correo", email);
+                        sessionStorage.setItem("area", json.usuario[0].id_area);
+
+                        window.location.replace(`${base_url}index.php/empleados`);
+                    } else {
+                        alertas('Su cuenta aún no ha sido verificada.');
+                    }
+                    
                 }
                 
             } else {
@@ -37,4 +52,10 @@ function login(){
         }
     });
     
+}
+
+function alertas(alerta){
+    $('#alertaModal').modal('show');
+
+    $('#info-modal-cuerpo').html(alerta);
 }

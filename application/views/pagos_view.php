@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +7,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="myHOME - real estate template project">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://js.stripe.com/v3/"></script>
 <link rel="stylesheet" type="text/css" href="<?= base_url() ?>static/styles/bootstrap-4.1.2/bootstrap.min.css">
 <link href="<?= base_url() ?>static/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="<?= base_url() ?>static/plugins/OwlCarousel2-2.3.4/owl.carousel.css">
@@ -17,6 +19,10 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css"/>
 </head>
 <body>
+
+<div id="loader" class="loader"></div>
+
+<div style="display:none;" id="myDiv" class="animate-bottom">
 
 <div class="super_container">
 	<div class="super_overlay"></div>
@@ -69,11 +75,18 @@
 			<div class="col-lg-6">
 				<div class="row">
 				<h1>Estado: </h1><h2 id="estado" style="margin-top: 10px; margin-left: 10px;">Pendiente</h2>
+				<h2 id="estado-pronto" style="margin-top: 10px; margin-left: 10px;"></h2>
+				<input id="pronto-status" type="hidden" value="">
 				</div>
 				
 			</div>
 		</div>
-		<button id="btn-pagar" class="btn btn-outline-success" data-toggle="modal" data-target="#pagoModal">Pagar</button>
+		<button id="btn-pagar" class="btn btn-outline-success">Pagar</button>
+		<div class="my-3 d-flex justify-content-center">
+		<button id="btn-adelantado" onclick="adelantadoModal()" class="btn btn-lg mt-5 p-2 px-4 btn-outline-success">
+		Pagar Siguiente Mes por Adelantado   
+		</button>
+		</div>
 	</div>
 
 	<!-- Featured -->
@@ -96,14 +109,21 @@
 				<th class="th" style="width:20%;">Año
 
 				</th>
-				<th class="th" style="width:20%;">Fecha de pago
+				<th class="th" style="width:15%;">Estado
 
 				</th>
-				<th class="th" style="width:20%;">Hora de pago
+				<th class="th" style="width:15%;">Fecha de pago
 
 				</th>
-				<th class="th" style="width:20%;">Pronto pago
+				<th class="th" style="width:15%;">Hora de pago
 
+				</th>
+				<th class="th" style="width:5%;">Pronto pago
+
+				</th>
+				<th class="th" style="width:5%;">Verificado
+				</th>
+				<th class="th" style="width:5%;">
 				</th>
 				</tr>
 			</thead>
@@ -115,11 +135,17 @@
 				</th>
 				<th>Año
 				</th>
+				<th>Estado
+				</th>
 				<th>Fecha de pago
 				</th>
 				<th>Hora de pago
 				</th>
 				<th>Pronto pago
+				</th>
+				<th>Verificado
+				</th>
+				<th>Verificado
 				</th>
 				</tr>
 			</tfoot>
@@ -139,32 +165,70 @@
 			
 		</div>
 		<div class="modal-body">
+		<input id="id-pago-input" type="hidden" value="">
+		<input id="fecha-pago-input" type="hidden" value="0">
 			<div class="row m-3">
-				<h3>Total a pagar: </h3><h3 id="total">$ 2000.00</h3>
+				<h3>Total a pagar: </h3><h3 class="ml-1" id="total">$ 2000.00</h3>
 			</div>
 			<h3 class="m-3">Escoja un método de pago: </h3>
 			<div class="row botones-pago">
 				<button id="btn-tarjeta" class="btn text-white btn-tipo"><i class="fa fa-credit-card fa-3x" aria-hidden="true"></i></button>
-				<button class="btn text-white btn-tipo"><i class="fa fa-paypal fa-3x"></i></button>
-				<button class="btn text-white btn-tipo"><img src="<?= base_url() ?>static/images/Oxxo_Logo.svg" style="height: 45px; width: 60px;"></button>
+				<button id="btn-paypal" class="btn text-white btn-tipo"><i class="fa fa-paypal fa-3x"></i></button>
+				<button id="btn-oxxo" class="btn text-white btn-tipo"><img src="<?= base_url() ?>static/images/Oxxo_Logo.svg" style="height: 45px; width: 60px;"></button>
 			</div>
 			<div id="form-pago" action="#" class=" mt-5">
 
+				<div class="d-flex align-items-center justify-content-center">
+					<h2 id="titulo-cuenta">Transferir a Cuenta: </h2>
+				</div>
+
+				<div class="row m-3">
+					<div id="imagen-banco">
+					
+					</div>
+					<div class="col">
+						<h3 class="font-weight-bold mb-2">Número de tarjeta: </h3>
+						<h3 class="font-weight-bold">CLABE: </h3>
+					</div>
+					<div class="col">
+						<h3 class="mb-2" id="numero-cuenta"></h3>
+						<h3 id="clabe-cuenta"></h3>
+					</div>
+					
+				</div>
+
+				<div class="row form-group mb-4">
+                    
+                    <div class="col-md-12 mb-md-0">
+                        <label class="font-weight-bold" for="comprobante">Comprobante del pago: </label>
+                        <input type="file" id="comprobante" class="form-control-file border">
+                    </div>
+                    <div id="comprobante-error"></div>
+				</div>
+
+				<div class="row justify-content-center">
+                    <div class="justify-content-center">
+                    <button id="btn-confirmar" class="btn btn-lg" onclick="">Subir Comprobante</button>
+                    </div>
+				</div>
+				
+					<!--					
                     <div class="d-flex align-items-center justify-content-center">
                         <h4>Tarjeta de crédito/débito</h4>
                     </div>
 
                     <div id="alerta-tarjeta"></div>
-					<form role="form">
+					<form role="form" id="pago-tarjeta">
+					<input type="hidden" id="id-pago-form">
 					<div class="form-group">
 						<label for="username">Nombre completo (en la tajeta)</label>
-						<input type="text" id="nombre-tarjeta" name="username" required class="form-control">
+						<input type="text" required class="form-control">
 						<div class="error" id="nombre-error"></div>
 					</div>
 					<div class="form-group">
 						<label for="cardNumber">Número de tarjeta</label>
 						<div class="input-group">
-						<input type="text" id="numero-tarjeta" maxlength="16" name="cardNumber" placeholder="Tu número de tarjeta" class="form-control" required>
+						<input type="text" maxlength="16" name="cardNumber" placeholder="Tu número de tarjeta" class="form-control" required>
 						<div class="input-group-append">
 							<span class="input-group-text text-muted">
 								<i class="fa fa-cc-visa mx-1"></i>
@@ -180,8 +244,8 @@
 						<div class="form-group">
 							<label><span class="hidden-xs">Expiración</span></label>
 							<div class="input-group">
-							<input id="mes-expiracion" type="number" placeholder="MM" name="" min="1" max="12" class="form-control" required>
-							<input id="anio-expiracion" type="number" placeholder="YY" name="" min="00" max="99" class="form-control" required>
+							<input type="text" maxlength="2" placeholder="MM" class="form-control" required>
+							<input type="text" maxlength="2" placeholder="YY" class="form-control" required>
 							</div>
 							<div class="error" id="expiracion-error"></div>
 						</div>
@@ -191,17 +255,26 @@
 							<label data-toggle="tooltip" title="Código de 3 dígitos en parte trasera de su tarjeta">CVV
 								<i class="fa fa-question-circle"></i>
 							</label>
-							<input id="cvv" type="text" maxlength="3" required class="form-control">
+							<input type="text" maxlength="3" required class="form-control">
 							<div class="error" id="cvv-error"></div>
 						</div>
 						</div>
 
 
 					</div>
-					<button type="button" id="btn-pagar-tarjeta" class="subscribe btn btn-confirmar btn-block rounded-pill shadow-sm"> Confirmar  </button>
+					<button class="subscribe btn btn-confirmar btn-block rounded-pill shadow-sm"> Confirmar  </button>
+
+					<input type="text" name="conektaTokenId" id="conektaTokenId">
 					</form>
+					-->
+
 
                 </div>
+					
+				<div id="paypal-container" class="mt-3" style="display: none;">
+				<div id="paypal-button-container"></div>
+				<div id="paypal-button"></div>
+				</div>
 		</div>
 		<div class="modal-footer">
 			<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
@@ -320,7 +393,10 @@
 	</footer>
 </div>
 
+</div>
+
 <script src="<?= base_url() ?>static/js/jquery-3.3.1.min.js"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=AVw6a0qki2LSaKShcKzL1DY9v7GuhbAVJfh6qK9_8TQ8xQaNnndXG_fi08phj1Dqs2ofcUyOnhRnuphI&currency=MXN&disable-funding=credit,card"></script>
 <script type="text/javascript" src="<?= base_url() ?>static/js/datatables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 <script src="<?= base_url() ?>static/styles/bootstrap-4.1.2/popper.js"></script>
@@ -334,6 +410,8 @@
 <script src="<?= base_url() ?>static/plugins/easing/easing.js"></script>
 <script src="<?= base_url() ?>static/plugins/progressbar/progressbar.min.js"></script>
 <script src="<?= base_url() ?>static/plugins/parallax-js-master/parallax.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js" integrity="sha512-VZ6m0F78+yo3sbu48gElK4irv2dzPoep8oo9LEjxviigcnnnNvnTOJRSrIhuFk68FMLOpiNz+T77nNY89rnWDg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js" integrity="sha512-VGxuOMLdTe8EmBucQ5vYNoYDTGijqUsStF6eM7P3vA/cM1pqOwSBv/uxw94PhhJJn795NlOeKBkECQZ1gIzp6A==" crossorigin="anonymous"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCIwF204lFZg1y4kPSIhKaHEXMLYxxuMhA"></script>
 <script src="<?= base_url() ?>static/js/pagos.js"></script>
 </body>

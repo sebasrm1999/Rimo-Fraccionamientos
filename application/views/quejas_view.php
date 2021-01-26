@@ -17,6 +17,10 @@
 </head>
 <body>
 
+<div id="loader" class="loader"></div>
+
+<div style="display:none;" id="myDiv" class="animate-bottom">
+
 <div class="super_container">
 	<div class="super_overlay"></div>
 	
@@ -203,6 +207,8 @@
 			</div>
 		</div>
 	</footer>
+</div>
+
 </div>
 
 <script src="<?= base_url() ?>static/js/jquery-3.3.1.min.js"></script>

@@ -14,39 +14,19 @@
 
 ******************************/
 // Basic example
-let base_url = 'http://localhost/myhome_ci/';
+let base_url = 'http://dtai.uteq.edu.mx/~ramseb188/myhome_ci/';
 
 $(document).ready(function()
 {
     
-    var areas = document.getElementById('areas');
-
-    areas.innerHTML= '';
-    
-    $.ajax({
-        "url" : base_url + "BackEnd/areas",
-        "type" : "get",
-        "dataType" : "json",
-        "success" : function(json){
-
-            json.areas.forEach(doc => {
-                areas.innerHTML += `<tr>
-                <td>${doc.nombre}</td>
-                <td>${doc.encargado}</td>
-                <td>
-                <button class="btn btn-outline-danger" onclick="borrararea(${doc.id_area})" ><i class="fa fa-trash fa-3x"></i></button>
-                <button id="btn-actualizar-${doc.id_area}" class="btn btn-outline-warning" onclick="actualizarform(${doc.id_area})"><i class="fa fa-pencil fa-3x"></i></button>
-                </td>
-				</tr>`;
-            });
-
-            $('#dtBasicExample').DataTable({
-                "destroy": true,
-                "pagingType": "simple_numbers"
-              });
-            
+    var userID = sessionStorage.getItem('id');
+        if(userID != null){
+          cargartabla();
+          showPage();
+        } else {
+          sessionStorage.clear();
+          window.location.replace(`${base_url}index.php`);
         }
-    });
 
 	/* 
 
@@ -160,7 +140,6 @@ function cargartabla(){
             json.areas.forEach(doc => {
                 areas.innerHTML += `<tr>
                 <td>${doc.nombre}</td>
-                <td>${doc.encargado}</td>
                 <td>
                 <button class="btn btn-outline-danger" onclick="borrararea(${doc.id_area})" ><i class="fa fa-trash fa-3x"></i></button>
                 <button id="btn-actualizar-${doc.id_area}" class="btn btn-outline-warning" onclick="actualizarform(${doc.id_area})"><i class="fa fa-pencil fa-3x"></i></button>
@@ -173,6 +152,7 @@ function cargartabla(){
                 "pagingType": "simple_numbers"
               });
             
+              showPage();
         }
     });
 }
@@ -185,29 +165,31 @@ function cerrar(){
 
 function agregararea(){
     var nombre = document.getElementById('nombre').value;
-    var encargado = document.getElementById('encargado').value;
-    $.ajax({
-        "url" : base_url + "BackEnd/nuevaarea",
-        "type" : "post",
-        "data" : {
-            "nombre" : nombre,
-            "encargado" : encargado
-        },
-        "dataType" : "json",
-        "success" : function(json){
-
-            if(json.resultado){
-
-                cargartabla();
-                $('#form-area').css('display', 'none');
-                
-            } else {
-                alert('Error inesperado');
-            }
-            
-        }
-    });
+    if(nombre.length > 0){
+        $.ajax({
+            "url" : base_url + "BackEnd/nuevaarea",
+            "type" : "post",
+            "data" : {
+                "nombre" : nombre,
+                "encargado" : '-'
+            },
+            "dataType" : "json",
+            "success" : function(json){
     
+                if(json.resultado){
+    
+                    cargartabla();
+                    $('#form-area').css('display', 'none');
+                    
+                } else {
+                    alertas('Error inesperado');
+                }
+                
+            }
+        });
+    } else {
+        alertas('Favor de llenar todos los campos...');
+    }
 }
 
 function actualizarform(id){
@@ -229,7 +211,6 @@ function actualizarform(id){
             $("#btn-confirmar").attr("onclick",`actualizararea(${id})`);
 
             document.getElementById('nombre').value = json[0].nombre;
-            document.getElementById('encargado').value = json[0].encargado;
             
         }
     });
@@ -238,29 +219,32 @@ function actualizarform(id){
 
 function actualizararea(id){
     var nombre = document.getElementById('nombre').value;
-    var encargado = document.getElementById('encargado').value;
-    $.ajax({
-        "url" : base_url + "BackEnd/actualizaarea",
-        "type" : "post",
-        "data" : {
-            "id" : id,
-            "nombre" : nombre,
-            "encargado" : encargado
-        },
-        "dataType" : "json",
-        "success" : function(json){
-
-            if(json.resultado){
-
-                cargartabla();
-                $('#form-area').css('display', 'none');
+    if(nombre.length > 0){
+        $.ajax({
+            "url" : base_url + "BackEnd/actualizaarea",
+            "type" : "post",
+            "data" : {
+                "id" : id,
+                "nombre" : nombre,
+                "encargado" : '-'
+            },
+            "dataType" : "json",
+            "success" : function(json){
+    
+                if(json.resultado){
+    
+                    cargartabla();
+                    $('#form-area').css('display', 'none');
+                    
+                } else {
+                    alert('Error inesperado');
+                }
                 
-            } else {
-                alert('Error inesperado');
             }
-            
-        }
-    });
+        });
+    } else {
+        alertas('Favor de llenar todos los campos...');
+    }
 }
 
 function borrararea(id){
@@ -284,3 +268,14 @@ function borrararea(id){
         }
     });
 }
+
+function alertas(alerta){
+    $('#alertaModal').modal('show');
+
+    $('#info-modal-cuerpo').html(alerta);
+}
+
+function showPage() {
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("myDiv").style.display = "block";
+  }

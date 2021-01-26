@@ -18,6 +18,10 @@
 </head>
 <body>
 
+<div id="loader" class="loader"></div>
+
+<div style="display:none;" id="myDiv" class="animate-bottom">
+
 <div class="super_container">
 	<div class="super_overlay"></div>
 	
@@ -33,9 +37,11 @@
 					<li><a href="<?= base_url() ?>index.php/avisoscrud">Avisos</a></li>
 					<li><a href="<?= base_url() ?>index.php/pagoscrud">Pagos</a></li>
 					<li class="active"><a href="#">Quejas</a></li>
-					<li><a href="<?= base_url() ?>index.php/preguntascrud">Preguntas frecuentes</a></li>
+					<li><a href="<?= base_url() ?>index.php/preguntascrud">Preguntas</a></li>
 					<li><a href="<?= base_url() ?>index.php/areascrud">Áreas</a></li>
 					<li><a href="<?= base_url() ?>index.php/usuarioscrud">Usuarios</a></li>
+					<li><a href="<?= base_url() ?>index.php/subcoloniascrud">Subcolonias</a></li>
+					<li><a href="<?= base_url() ?>index.php/parametroscrud"><i class="fa fa-cog fa-3x"></i></a></li>
 				</ul>
 			</nav>
 			<button id="btn-cerrar" onclick="cerrar()" class="ml-auto btn rounded-0">Cerrar Sesión</button>
@@ -57,6 +63,8 @@
 					<li><a href="<?= base_url() ?>index.php/preguntascrud">Preguntas Frecuentes</a></li>
 					<li><a href="<?= base_url() ?>index.php/areascrud">Áreas</a></li>
 					<li><a href="<?= base_url() ?>index.php/usuarioscrud">Usuarios</a></li>
+					<li><a href="<?= base_url() ?>index.php/subcoloniascrud">Subcolonias</a></li>
+					<li><a href="<?= base_url() ?>index.php/parametroscrud"><i class="fa fa-cog fa-3x"></i></a></li>
 				</ul>
 			</nav>
 		</div>
@@ -76,10 +84,10 @@
 			<table id="dtBasicExample" class="table table-striped table-bordered table-responsive-md" cellspacing="0" width="100%">
 			<thead>
 				<tr>
-				<th class="th" style="width:30%;">Asunto
+				<th class="th" style="width:20%;">Asunto
 
                 </th>
-                <th class="th" style="width:30%;">Usuario
+                <th class="th" style="width:20%;">Usuario
 
                 </th>
 				<th class="th" style="width:10%;">Fecha
@@ -88,6 +96,12 @@
 				<th class="th" style="width:10%;">Hora
 
                 </th>
+				<th class="th" style="width:10%;">Status
+
+				</th>
+				<th class="th" style="width:10%;">Fecha Estimada
+
+				</th>
                 <th class="th" style="width:20%;">
 
 				</th>
@@ -105,6 +119,10 @@
 				<th>Fecha
 				</th>
 				<th>Hora
+                </th>
+				<th>Status
+                </th>
+				<th>Fecha Estimada
                 </th>
                 <th>
 				</th>
@@ -152,6 +170,27 @@
 
 	</div>
 	</div>
+
+	<div id="alertaModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+      <h4 id="info-modal-titulo" class="modal-title text-white">Error</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        
+      </div>
+      <div class="modal-body">
+        <p id="info-modal-cuerpo" style="color: 000#;"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 	<footer class="footer">
 		<div class="footer_content">
@@ -211,6 +250,8 @@
 								<li><a href="<?= base_url() ?>index.php/preguntascrud">Preguntas Frecuentes</a></li>
 								<li><a href="<?= base_url() ?>index.php/areascrud">Áreas</a></li>
 								<li><a href="<?= base_url() ?>index.php/usuarioscrud">Usuarios</a></li>
+								<li><a href="<?= base_url() ?>index.php/subcoloniascrud">Subcolonias</a></li>
+								<li><a href="<?= base_url() ?>index.php/parametroscrud"><i class="fa fa-cog fa-3x"></i></a></li>
 							</ul>
 						</div>
 					</div>
@@ -219,6 +260,8 @@
 			</div>
 		</div>
 	</footer>
+</div>
+
 </div>
 
 <script src="<?= base_url() ?>static/js/jquery-3.3.1.min.js"></script>
